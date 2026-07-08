@@ -1,0 +1,147 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const all = (await getCollection('products')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const products = all.filter((p) => p.data.status === 'collection');
+const radar = all.filter((p) => p.data.status === 'radar');
+const latest = products[0];
+const stamp = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+---
+
+<Base
+  title="Considered — only AI products made with care"
+  description="A hand-picked collection of AI products made with care — every entry in real use, written up with appreciation. No paid placements, no auto-listing."
+>
+  <section class="hero">
+    <p class="hero-kicker reveal" style="--i: 0">A hand-picked index of crafted AI products</p>
+    <h1 class="reveal" style="--i: 1">
+      Only AI products<br />made with care<span class="full-stop">.</span>
+    </h1>
+    <p class="hero-sub reveal" style="--i: 2">
+      Dozens of AI products launch every day, and the ones made with real care are easy to miss.
+      Considered keeps the few worth keeping — every entry is in real use, and every entry
+      explains what makes it special. No paid placements, no auto-listing.
+    </p>
+    <p class="hero-count reveal" style="--i: 3">
+      Currently<strong>{products.length}</strong>entries{
+        radar.length > 0 && <span class="hero-radar"> · {radar.length} on the radar</span>
+      }
+    </p>
+    <span class="hero-mark" aria-hidden="true">CHOSEN, NOT LISTED</span>
+  </section>
+
+  <section class="criteria" id="criteria">
+    <div>
+      <h2>What Considered <em>looks for</em></h2>
+      <ul>
+        <li>Great by default — no manual required</li>
+        <li>AI used with restraint and precision — still useful when the AI fails</li>
+        <li>Care visible in the details: interactions, copy, defaults</li>
+        <li>In real, continued use — not just tried once</li>
+      </ul>
+    </div>
+    <div>
+      <h2>What it passes on</h2>
+      <ul>
+        <li>Anything not genuinely used by the editors</li>
+        <li>Great demos that don't hold up in daily use</li>
+        <li>Products built for the wave, not the need</li>
+        <li>Paid listings of any kind — placement is not for sale</li>
+      </ul>
+    </div>
+  </section>
+
+  {
+    latest && (
+      <section class="featured reveal" style="--i: 4">
+        <div class="section-label">
+          <span>Latest addition</span>
+          <span class="note">Added {stamp(latest.data.date)}</span>
+        </div>
+        <a href={`/p/${latest.id}/`} class="featured-link">
+          <div class="featured-main">
+            <h2 class="featured-name">{latest.data.name}</h2>
+            <p class="featured-tagline">{latest.data.tagline}</p>
+            {latest.data.image && (
+              <figure class="featured-shot">
+                <img src={latest.data.image} alt={`${latest.data.name} — product visual`} loading="eager" />
+              </figure>
+            )}
+            <p class="featured-cta">Editor's notes →</p>
+          </div>
+          <blockquote class="featured-quote">
+            <p>“{latest.data.review[0]}”</p>
+          </blockquote>
+        </a>
+      </section>
+    )
+  }
+
+  <section id="index">
+    <div class="index-head">
+      <h2>Index</h2>
+    </div>
+    <ol class="entries">
+      {
+        products.map((p, i) => (
+          <li class="entry reveal" style={`--i: ${i + 5}`}>
+            <a href={`/p/${p.id}/`}>
+              <span class="entry-stamp">{stamp(p.data.date)}</span>
+              <span class="entry-main">
+                {p.data.image && (
+                  <span class="entry-thumb">
+                    <img src={p.data.image} alt="" loading="lazy" />
+                  </span>
+                )}
+                <span class="entry-text">
+                  <span class="entry-name">{p.data.name}</span>
+                  <span class="entry-meta">
+                    {p.data.category} · {p.data.platform.join(' / ')}
+                  </span>
+                  {p.data.tags.length > 0 && (
+                    <span class="entry-tags">
+                      {p.data.tags.map((t) => (
+                        <span class="tag">{t}</span>
+                      ))}
+                    </span>
+                  )}
+                </span>
+              </span>
+              <span class="entry-verdict">“{p.data.verdict}”</span>
+              <span class="entry-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  {
+    radar.length > 0 && (
+      <section id="radar">
+        <div class="index-head">
+          <h2>On the radar</h2>
+          <p class="radar-note">Newly launched, promising — not yet lived with</p>
+        </div>
+        <ol class="radar-list">
+          {radar.map((p) => (
+            <li class="radar-entry">
+              <a href={`/p/${p.id}/`}>
+                <span class="radar-name">
+                  {p.data.favicon && <img class="prod-ico" src={p.data.favicon} alt="" loading="lazy" />}
+                  {p.data.name}
+                </span>
+                <span class="radar-meta">{p.data.category}</span>
+                <span class="radar-verdict">{p.data.verdict}</span>
+                <span class="entry-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )
+  }
+</Base>

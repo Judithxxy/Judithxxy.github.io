@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Considered" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="topbar">
+        <a href="/" class="brand">Considered<span class="brand-dot">.</span></a>
+        <nav>
+          <a href="/#criteria">Criteria</a>
+          <a href="/#index">Index</a>
+          <a href="/about/">About</a>
+        </nav>
+      </header>
+      <slot />
+      <footer>
+        <p class="colophon">
+          Considered is one person's collection of AI products made with care — used, appreciated,
+          and written up in my own words. No paid placements, no auto-listing, ever.
+        </p>
+        <p>
+          <a class="rss-inline" href="/rss.xml">Subscribe via RSS</a>
+          <span class="foot-sep">·</span> © 2026 Considered — working title
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
