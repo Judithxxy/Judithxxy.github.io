@@ -21,12 +21,21 @@ Output: one file at `src/content/products/<slug>.md` + a local preview for sign-
    category, tagline material) from the product's official site. If something can't be
    verified, ask — never guess.
 2. **Distill the editor's notes (most important)**:
-   - `review` field = 2–3 English paragraphs distilled from her telling. Organize and
+   - `review` field = 2–4 English paragraphs distilled from her telling. Organize and
      tighten, keep her angle and specifics (the anecdotes, the resistance-then-conversion,
      the PM observations). **Every point must come from her** — no invented opinions,
      no generic praise. Tone: first-person appreciation, never a verdict from above.
+   - **Write for the reader, not the transcript.** Her telling's order is raw material,
+     not the structure: readers scan, so the first sentence of the notes — and of every
+     paragraph — must carry its sharpest claim. Discovery backstory ("friends kept
+     recommending it") never opens the notes; compress it into a supporting clause or
+     drop it. If a reader stops after two lines, they should already have the point.
    - `verdict` field = one short line (~12 words) capturing her sharpest point,
      phrased personally ("It won me over before the onboarding ended")
+   - `highlight` field = the single most essential passage **selected** from the notes
+     (2–3 sentences max, the distilled core of why this product matters — not the
+     backstory). Shown large in the homepage "Latest addition" block. Light trimming
+     for standalone reading is fine; no new claims.
    - `scores` field = propose craft / originality / tech (1–5) based on what she
      emphasized, and ask her to confirm or adjust
    - Show her the distilled version and get sign-off before finishing

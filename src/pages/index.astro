@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
 
 const all = (await getCollection('products')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -9,23 +10,32 @@ const products = all.filter((p) => p.data.status === 'collection');
 const radar = all.filter((p) => p.data.status === 'radar');
 const latest = products[0];
 const stamp = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Considered',
+  url: Astro.site?.href,
+  description:
+    'A hand-picked collection of AI products made with care — every entry in real use, written up with appreciation.',
+});
 ---
 
 <Base
   title="Considered — only AI products made with care"
   description="A hand-picked collection of AI products made with care — every entry in real use, written up with appreciation. No paid placements, no auto-listing."
 >
+  <script type="application/ld+json" set:html={jsonLd} />
   <section class="hero">
-    <p class="hero-kicker reveal" style="--i: 0">A hand-picked index of crafted AI products</p>
-    <h1 class="reveal" style="--i: 1">
+    <h1 class="reveal" style="--i: 0">
       Only AI products<br />made with care<span class="full-stop">.</span>
     </h1>
-    <p class="hero-sub reveal" style="--i: 2">
-      Dozens of AI products launch every day, and the ones made with real care are easy to miss.
-      Considered keeps the few worth keeping — every entry is in real use, and every entry
-      explains what makes it special. No paid placements, no auto-listing.
+    <p class="hero-sub reveal" style="--i: 1">
+      Dozens of AI products launch every day; the ones made with real care are easy to miss.
+      Every entry here is in real use, with notes on what makes it special. No paid placements,
+      no auto-listing.
     </p>
-    <p class="hero-count reveal" style="--i: 3">
+    <p class="hero-count reveal" style="--i: 2">
       Currently<strong>{products.length}</strong>entries{
         radar.length > 0 && <span class="hero-radar"> · {radar.length} on the radar</span>
       }
@@ -56,7 +66,7 @@ const stamp = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year:
 
   {
     latest && (
-      <section class="featured reveal" style="--i: 4">
+      <section class="featured reveal" style="--i: 3">
         <div class="section-label">
           <span>Latest addition</span>
           <span class="note">Added {stamp(latest.data.date)}</span>
@@ -67,13 +77,19 @@ const stamp = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year:
             <p class="featured-tagline">{latest.data.tagline}</p>
             {latest.data.image && (
               <figure class="featured-shot">
-                <img src={latest.data.image} alt={`${latest.data.name} — product visual`} loading="eager" />
+                <img
+                  src={latest.data.image}
+                  alt={`${latest.data.name} — product visual`}
+                  width="1200"
+                  height="630"
+                  loading="eager"
+                />
               </figure>
             )}
-            <p class="featured-cta">Editor's notes →</p>
+            <p class="featured-cta">Editor's notes <Icon name="arrow-right" /></p>
           </div>
           <blockquote class="featured-quote">
-            <p>“{latest.data.review[0]}”</p>
+            <p>“{latest.data.highlight ?? latest.data.review[0]}”</p>
           </blockquote>
         </a>
       </section>
@@ -87,20 +103,24 @@ const stamp = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year:
     <ol class="entries">
       {
         products.map((p, i) => (
-          <li class="entry reveal" style={`--i: ${i + 5}`}>
+          <li class="entry reveal" style={`--i: ${i + 4}`}>
             <a href={`/p/${p.id}/`}>
               <span class="entry-stamp">{stamp(p.data.date)}</span>
               <span class="entry-main">
                 {p.data.image && (
                   <span class="entry-thumb">
-                    <img src={p.data.image} alt="" loading="lazy" />
+                    <img
+                      src={p.data.image}
+                      alt=""
+                      width="1200"
+                      height="630"
+                      loading="lazy"
+                      transition:name={`shot-${p.id}`}
+                    />
                   </span>
                 )}
                 <span class="entry-text">
-                  <span class="entry-name">{p.data.name}</span>
-                  <span class="entry-meta">
-                    {p.data.category} · {p.data.platform.join(' / ')}
-                  </span>
+                  <span class="entry-name" transition:name={`name-${p.id}`}>{p.data.name}</span>
                   {p.data.tags.length > 0 && (
                     <span class="entry-tags">
                       {p.data.tags.map((t) => (
@@ -111,7 +131,7 @@ const stamp = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year:
                 </span>
               </span>
               <span class="entry-verdict">“{p.data.verdict}”</span>
-              <span class="entry-arrow" aria-hidden="true">→</span>
+              <span class="entry-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
             </a>
           </li>
         ))
@@ -123,20 +143,20 @@ const stamp = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year:
     radar.length > 0 && (
       <section id="radar">
         <div class="index-head">
-          <h2>On the radar</h2>
+          <h2><Icon name="radar" /> On the radar</h2>
           <p class="radar-note">Newly launched, promising — not yet lived with</p>
         </div>
         <ol class="radar-list">
           {radar.map((p) => (
             <li class="radar-entry">
               <a href={`/p/${p.id}/`}>
-                <span class="radar-name">
+                <span class="radar-name" transition:name={`name-${p.id}`}>
                   {p.data.favicon && <img class="prod-ico" src={p.data.favicon} alt="" loading="lazy" />}
                   {p.data.name}
                 </span>
                 <span class="radar-meta">{p.data.category}</span>
                 <span class="radar-verdict">{p.data.verdict}</span>
-                <span class="entry-arrow" aria-hidden="true">→</span>
+                <span class="entry-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
               </a>
             </li>
           ))}

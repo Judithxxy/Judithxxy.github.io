@@ -11,25 +11,29 @@ product entry page.
    English `review` paragraphs. Every point must trace back to something she actually
    said — never add opinions, anecdotes, or praise she didn't express. She reviews and
    signs off on the distilled version before it ships.
-2. **Tone: personal appreciation, never a verdict from above.** The site's voice is
+2. **Editor's notes are written for the reader, not as a transcript.** Her telling's
+   order is raw material. Readers scan: the first sentence of the notes — and of each
+   paragraph — carries the sharpest claim; backstory gets compressed into supporting
+   clauses or cut. If someone reads only two lines, they already have the point.
+3. **Tone: personal appreciation, never a verdict from above.** The site's voice is
    first-person "I", grateful and specific — what she felt, what won her over. Banned
    framings: "what earns the entry", "deserves", "qualifies", anything that sounds
    like a tribunal judging products. The editor is a fan taking notes, not a judge
    issuing rulings.
-3. **The "At a glance" body is facts, not opinions.** Objective information only:
+4. **The "At a glance" body is facts, not opinions.** Objective information only:
    what it does, notable details, who it's for. No judgment words — the personal
    perspective lives only in the editor's notes.
-4. **Scores are a profile, not a ranking.** Three dimensions in `scores` (1–5):
+5. **Scores are a profile, not a ranking.** Three dimensions in `scores` (1–5):
    `craft` (polish and detail in the experience), `originality` (opened a new
    interaction pattern or category), `tech` (how much the underlying technology
    carries the experience). They describe where a product shines; they are never used
    to compare or rank entries against each other. The editor sets or confirms every
    number.
-5. ⚠️ Placeholder status: **Wispr Flow's notes are distilled from the editor's real
-   telling (2026-07-08) and approved-pending-review.** The other six entries (Granola /
-   Tolan / Dia / NotebookLM / Lovable / Sesame) still carry AI-written placeholder
-   notes and AI-guessed scores; replace each as the editor narrates them. Nothing goes
-   live before that.
+6. ⚠️ Placeholder status: notes for **Wispr Flow / Granola / Tolan / Dia / NotebookLM**
+   are distilled from the editor's real tellings (2026-07-08), pending her final
+   sign-off. **Lovable, Sesame, Gamma, and Framer** still carry AI-written placeholder
+   notes and AI-guessed scores; replace each as the editor narrates them. The radar
+   entries (Clicky, Marble) reflect her real first impressions.
 
 ## Language
 
@@ -96,5 +100,9 @@ The editor provides: product name, URL, her review (one or more paragraphs). The
 Editorial/gallery direction: warm paper background, serif display type
 (Instrument Serif + Instrument Sans), table-of-contents layout, vermilion as the
 single accent color. Keep restraint when touching styles — no card shadows, no
-gradients, no decorative icons. Design tokens live at the top of
-`src/styles/global.css`.
+gradients. Design tokens live at the top of `src/styles/global.css`.
+
+Icons: inline Lucide SVGs via `src/components/Icon.astro`, sourced with
+`npx better-icons get lucide:<name>` (strip the odd `fill="currentColor"` from
+stroke paths when adding). Functional positions only — meta labels, links,
+navigation arrows, RSS — never decorative, never one per heading.

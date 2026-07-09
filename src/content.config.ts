@@ -25,6 +25,9 @@ const products = defineCollection({
     verdict: z.string(),
     // "Editor's notes" on the detail page — distilled from the editor's own telling
     review: z.array(z.string()),
+    // The single most essential excerpt from the notes (selected, not written) —
+    // shown in the homepage "Latest addition" block
+    highlight: z.string().optional(),
     // Where the product shines, 1-5 per dimension. Not a ranking between products —
     // a profile of where this one is strong.
     scores: z

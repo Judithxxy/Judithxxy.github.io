@@ -1,12 +1,18 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Icon from '../components/Icon.astro';
 
 interface Props {
   title: string;
   description: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
 }
 
-const { title, description } = Astro.props;
+const { title, description, ogImage, ogType = 'website' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
 ---
 
 <!doctype html>
@@ -16,6 +22,17 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Considered" />
+    {ogImageAbs && <meta property="og:image" content={ogImageAbs} />}
+    <meta name="twitter:card" content={ogImageAbs ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageAbs && <meta name="twitter:image" content={ogImageAbs} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="Considered" href="/rss.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,6 +41,7 @@ const { title, description } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <ClientRouter />
   </head>
   <body>
     <div class="wrap">
@@ -38,11 +56,10 @@ const { title, description } = Astro.props;
       <slot />
       <footer>
         <p class="colophon">
-          Considered is one person's collection of AI products made with care — used, appreciated,
-          and written up in my own words. No paid placements, no auto-listing, ever.
+          One person's collection of AI products made with care. No paid placements, ever.
         </p>
         <p>
-          <a class="rss-inline" href="/rss.xml">Subscribe via RSS</a>
+          <a class="rss-inline" href="/rss.xml"><Icon name="rss" /> Subscribe via RSS</a>
           <span class="foot-sep">·</span> © 2026 Considered — working title
         </p>
       </footer>

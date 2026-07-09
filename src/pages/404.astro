@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Base
+  title="Not in the collection — Considered"
+  description="This page doesn't exist. The collection is small on purpose — maybe what you're looking for is in it."
+>
+  <section class="page-head">
+    <p class="product-cat">404</p>
+    <h1>Not in the collection<span class="full-stop">.</span></h1>
+  </section>
+
+  <div class="about-body">
+    <p>
+      This page doesn't exist — or it was never picked. The collection is small on purpose,
+      so the index doesn't take long to browse.
+    </p>
+    <p class="notfound-links">
+      <a class="rss-inline" href="/#index"><Icon name="arrow-left" /> Browse the index</a>
+      <a class="rss-inline" href="/about/">Why this exists</a>
+    </p>
+  </div>
+</Base>

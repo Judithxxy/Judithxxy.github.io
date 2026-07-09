@@ -10,6 +10,10 @@ platform: [Web]
 pricing: Free tier + subscription (from ~$25/mo)
 date: 2026-05-16
 verdict: Turns an idea into something you can click the same day
+highlight: >-
+  Non-engineers don't want code, they want the thing. It hides the repository behind a live
+  preview you talk to, and the gap between describing a product and demoing it collapses to
+  an afternoon.
 scores:
   craft: 4
   originality: 4

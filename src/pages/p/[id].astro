@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
 
 export async function getStaticPaths() {
   const all = (await getCollection('products')).sort(
@@ -37,32 +38,56 @@ const dims = d.scores
       { label: 'Technology', value: d.scores.tech },
     ]
   : [];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: d.name,
+  url: d.url,
+  applicationCategory: d.category,
+  operatingSystem: d.platform.join(', '),
+  description: d.tagline,
+  ...(d.image ? { image: new URL(d.image, Astro.site).href } : {}),
+  review: {
+    '@type': 'Review',
+    author: { '@type': 'Organization', name: 'Considered' },
+    reviewBody: d.review.join('\n\n'),
+  },
+});
 ---
 
-<Base title={`${d.name} — Considered`} description={d.tagline}>
-  <a href="/#index" class="back">← Back to index</a>
+<Base
+  title={`${d.name} — Considered`}
+  description={d.tagline}
+  ogImage={d.image}
+  ogType="article"
+>
+  <script type="application/ld+json" set:html={jsonLd} />
+  <a href="/#index" class="back"><Icon name="arrow-left" /> Back to index</a>
 
   <header class="product-head">
-    <p class="product-cat">
-      {d.status === 'radar' ? `On the radar · ${d.category}` : d.category}
-    </p>
-    <h1>{d.name}</h1>
+    {d.status === 'radar' && <p class="product-cat">On the radar</p>}
+    <h1 transition:name={`name-${product.id}`}>{d.name}</h1>
     <p class="product-tagline">{d.tagline}</p>
   </header>
 
   <dl class="meta-table">
     <div>
-      <dt>Platform</dt>
+      <dt><Icon name="shapes" /> Category</dt>
+      <dd>{d.category}</dd>
+    </div>
+    <div>
+      <dt><Icon name="devices" /> Platform</dt>
       <dd>{d.platform.join(' · ')}</dd>
     </div>
     <div>
-      <dt>Pricing</dt>
+      <dt><Icon name="tag" /> Pricing</dt>
       <dd>{d.pricing}</dd>
     </div>
     {
       d.tags.length > 0 && (
         <div>
-          <dt>Good for</dt>
+          <dt><Icon name="sparkles" /> Good for</dt>
           <dd class="meta-tags">
             {d.tags.map((t) => (
               <span class="tag">{t}</span>
@@ -72,11 +97,13 @@ const dims = d.scores
       )
     }
     <div>
-      <dt>Link</dt>
-      <dd><a href={d.url} target="_blank" rel="noopener">{new URL(d.url).hostname}</a></dd>
+      <dt><Icon name="link" /> Link</dt>
+      <dd>
+        <a href={d.url} target="_blank" rel="noopener">{new URL(d.url).hostname} <Icon name="arrow-up-right" /></a>
+      </dd>
     </div>
     <div>
-      <dt>Added</dt>
+      <dt><Icon name="calendar" /> Added</dt>
       <dd>{dateLabel}</dd>
     </div>
   </dl>
@@ -84,7 +111,14 @@ const dims = d.scores
   {
     d.image && (
       <figure class="product-shot">
-        <img src={d.image} alt={`${d.name} — product visual`} loading="eager" />
+        <img
+          src={d.image}
+          alt={`${d.name} — product visual`}
+          width="1200"
+          height="630"
+          loading="eager"
+          transition:name={`shot-${product.id}`}
+        />
       </figure>
     )
   }
@@ -94,7 +128,6 @@ const dims = d.scores
       <section class="dims">
         <div class="section-label">
           <span>Where it shines</span>
-          <span class="note">Felt in my own use — not a ranking</span>
         </div>
         <div class="dims-rows">
           {dims.map((dim) => (
@@ -114,19 +147,7 @@ const dims = d.scores
 
   <section class="why">
     <div class="section-label">
-      {
-        d.status === 'radar' ? (
-          <>
-            <span>Why I'm watching</span>
-            <span class="note">First impressions — not yet lived with</span>
-          </>
-        ) : (
-          <>
-            <span>Editor's notes</span>
-            <span class="note">Personal notes from real use</span>
-          </>
-        )
-      }
+      <span>{d.status === 'radar' ? "Why I'm watching" : "Editor's notes"}</span>
     </div>
     <blockquote>
       {d.review.map((para) => <p>{para}</p>)}
@@ -136,7 +157,6 @@ const dims = d.scores
   <section class="facts">
     <div class="section-label">
       <span>At a glance</span>
-      <span class="note">Facts, not opinions</span>
     </div>
     <div class="prose">
       <Content />
@@ -148,7 +168,7 @@ const dims = d.scores
       <nav class="entry-nav" aria-label="Walk the collection">
         {prev ? (
           <a href={`/p/${prev.id}/`} class="entry-nav-cell">
-            <span class="entry-nav-label">← Newer</span>
+            <span class="entry-nav-label"><Icon name="arrow-left" /> Newer</span>
             <span class="entry-nav-name">{prev.name}</span>
           </a>
         ) : (
@@ -158,7 +178,7 @@ const dims = d.scores
         )}
         {next ? (
           <a href={`/p/${next.id}/`} class="entry-nav-cell entry-nav-next">
-            <span class="entry-nav-label">Older →</span>
+            <span class="entry-nav-label">Older <Icon name="arrow-right" /></span>
             <span class="entry-nav-name">{next.name}</span>
           </a>
         ) : (

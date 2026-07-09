@@ -10,6 +10,9 @@ platform: [iOS, Web]
 pricing: Free (public preview)
 date: 2026-05-02
 verdict: The first AI voice that doesn't sound like it's reading
+highlight: >-
+  Maya sounds like she's thinking — she hesitates, laughs at the right beat, changes tone when
+  you do. The first five minutes are genuinely unsettling, in the way actually-new technology is.
 scores:
   craft: 3
   originality: 5

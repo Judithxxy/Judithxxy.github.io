@@ -9,14 +9,38 @@ image: /images/products/dia.png
 platform: [macOS (Apple Silicon)]
 pricing: Free + Dia Pro (~$20/mo) for unlimited AI use
 date: 2026-06-12
-verdict: AI in the browser that feels native, not bolted on
+verdict: The clearest answer yet to what an AI-native browser should be
+highlight: >-
+  One box where you search, navigate, ask, and transform — a universal entry point, kept
+  consistent, silky, and finely polished. Simple and practical while genuinely amplifying
+  what AI can do. The best AI browser in the industry right now — judged by someone who
+  still hasn't switched.
 scores:
-  craft: 4
+  craft: 5
   originality: 4
   tech: 4
 review:
-  - Every browser now staples an AI sidebar onto the old chrome; Dia instead put the AI where your fingers already go — the address bar — and taught it to see your open tabs. Asking a question across five tabs stops being a workflow and becomes typing.
-  - It inherits The Browser Company's eye for detail from Arc, but spends it on fewer, more obvious ideas. The result is the first AI browser my parents could use without a tutorial.
+  - >-
+    Dia is the best AI browser in the industry right now — and I say that as an Arc loyalist
+    who still hasn't switched. Like the rest of Arc's fans I felt gutted when the company
+    stopped iterating on it for this new product, and my reasons for staying are pure
+    inertia: years of habits and a deep pile of pinned tabs live in Arc, and my AI chat and
+    search needs are already met elsewhere. None of that dims what Dia gets right — plenty
+    of native Dia users took to the browser-plus-AI form immediately.
+  - >-
+    Why is it so loved? I think because The Browser Company is simply a team with taste. The
+    founder has real command of both product design and technology, and is an exceptional
+    storyteller — both generations of their browser shipped with a strong thesis about what
+    browsing should become, and that vision is what pulls users in to explore. The bet behind
+    walking away from Arc: as AI gets stronger, tabs stop being the point. You face one input
+    box and just ask — no search-results-then-webpages choreography. Dia's form welcomes
+    everyone, where Arc's tab acrobatics selected for geeks like me.
+  - >-
+    And the product delivers on the thesis. One box where you search, navigate, ask, and
+    transform — a universal entry point — with the whole experience kept consistent, silky,
+    and finely polished. It's simple and practical while genuinely amplifying what AI can do,
+    and right now that makes it the best AI browser in the industry — judged by someone who
+    still hasn't switched.
 ---
 
 ## What it does
@@ -33,4 +57,4 @@ review:
 
 ## Who it's for
 
-People who live in browser tabs all day and want the AI where the work already happens.
+Anyone who wants AI in the browser without learning anything new — built for everyone, not just tab power-users.
