@@ -5,6 +5,7 @@ tagline: Answers only from the sources you give it — every sentence links back
 favicon: /images/favicons/notebooklm.png
 category: Research
 tags: [research, documents, study]
+image: /images/products/notebooklm.png
 platform: [Web, iOS, Android]
 pricing: Free + Google One AI subscription
 related: [granola, marble]
@@ -16,6 +17,8 @@ highlight: >-
   NotebookLM refuses from the first step: everything grounds in the sources you provide, every
   sentence traceable back to the original. That trust is the whole reason heavy study users
   stay.
+pull: >-
+  Refusing to hallucinate was the core product decision.
 scores:
   craft: 3
   originality: 5

@@ -16,6 +16,8 @@ highlight: >-
   Granola understood that people want AI to capture the meeting without taking the notes away
   from them. The AI's summary amplifies what you wrote instead of replacing it. Your notes are
   your thinking — that can't be outsourced.
+pull: >-
+  Notes are thinking. Thinking shouldn't be outsourced.
 scores:
   craft: 5
   originality: 4

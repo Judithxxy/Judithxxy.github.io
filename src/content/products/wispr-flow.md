@@ -16,6 +16,8 @@ highlight: >-
   You can genuinely whisper, vague and half-formed, and precise text comes out — not a raw
   transcript, but something tidied just the right amount, ready to send. That's the whole
   difference between dictation as a gimmick and dictation as a default.
+pull: >-
+  The core value isn't described to you. You experience it.
 scores:
   craft: 5
   originality: 5

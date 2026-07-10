@@ -1,0 +1,45 @@
+---
+// The publication's manifesto: six sentences, large type, one at a time,
+// slow scroll reveal. No explanations underneath — the belief carries itself.
+import { manifesto, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const lines = manifesto[locale];
+---
+
+<section class="manifesto" id="manifesto" aria-label="Manifesto">
+  {lines.map((line) => <p class="manifesto-line">{line}</p>)}
+</section>
+
+<script is:inline data-astro-rerun>
+  (function () {
+    var lines = Array.prototype.slice.call(document.querySelectorAll('.manifesto-line'));
+    if (!lines.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      lines.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    function check() {
+      lines = lines.filter(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 0.85 && r.bottom > 0) {
+          el.classList.add('in');
+          return false;
+        }
+        return true;
+      });
+      if (!lines.length && window.__maniCheck) {
+        window.removeEventListener('scroll', window.__maniCheck);
+        window.__maniCheck = null;
+      }
+    }
+    if (window.__maniCheck) window.removeEventListener('scroll', window.__maniCheck);
+    window.__maniCheck = check;
+    window.addEventListener('scroll', check, { passive: true });
+    check();
+  })();
+</script>

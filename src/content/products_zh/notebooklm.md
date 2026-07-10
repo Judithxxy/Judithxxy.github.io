@@ -5,6 +5,7 @@ tagline: 只从你给的资料里回答——每句话都能链接回原文。
 favicon: /images/favicons/notebooklm.png
 category: 研究
 tags: [研究, 文档, 学习]
+image: /images/products/notebooklm.png
 platform: [Web, iOS, Android]
 pricing: 免费 + Google One AI 订阅
 related: [granola, marble]
@@ -15,6 +16,8 @@ highlight: >-
   对研究型用户来说，不可原谅的失败是 AI 一边教你一边胡编。NotebookLM 从第一步就拒绝
   这样：一切都锚定在你提供的资料上，每句话都可以追溯回原文。重度学习用户留下来，靠的
   就是这份信任。
+pull: >-
+  拒绝幻觉，就是最核心的产品决定。
 scores:
   craft: 3
   originality: 5

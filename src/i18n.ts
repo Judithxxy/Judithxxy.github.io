@@ -12,17 +12,45 @@ export const collectionFor: Record<Locale, 'products' | 'products_zh' | 'product
   ja: 'products_ja',
 };
 
+// 首页宣言 —— 六句，一句一屏节奏，无解释（v2 定位：出版物而非目录）
+export const manifesto: Record<Locale, string[]> = {
+  en: [
+    'Great products start with people.',
+    'AI is not the product.',
+    "Features don't create great software. Product conviction does.",
+    'The best interactions make AI disappear.',
+    'Great products change behavior.',
+    'We collect products that changed how we think.',
+  ],
+  zh: [
+    '伟大的产品，始于人。',
+    'AI 不是产品本身。',
+    '功能堆不出伟大的软件。产品信念才可以。',
+    '最好的交互，让 AI 消失。',
+    '伟大的产品改变行为。',
+    '我们收录那些改变了我们思考方式的产品。',
+  ],
+  ja: [
+    '偉大なプロダクトは、人から始まる。',
+    'AIはプロダクトではない。',
+    '機能が偉大なソフトウェアを作るのではない。信念が作る。',
+    '最良のインタラクションは、AIを見えなくする。',
+    '偉大なプロダクトは、行動を変える。',
+    '私たちは、考え方を変えたプロダクトを収集している。',
+  ],
+};
+
 export const t: Record<Locale, Record<string, string>> = {
   en: {
     siteName: 'Considered',
     slogan: 'Chosen, not listed.',
-    navCriteria: 'Criteria',
+    navCriteria: 'Manifesto',
     navIndex: 'Index',
     navAbout: 'About',
-    heroTitleA: 'Only AI products',
-    heroTitleB: 'made with care',
+    heroTitleA: 'Most AI products add AI.',
+    heroTitleB: 'A few redefine software',
     heroSub:
-      'Dozens of AI products launch every day; the ones made with real care are easy to miss. Every entry here is in real use, with notes on what makes it special. No paid placements, no auto-listing.',
+      'AI products launch every day. Most are iterations. A few rethink how software should work. This is where those products are documented.',
     currently: 'Currently',
     entries: 'entries',
     onRadarCount: 'on the radar',
@@ -70,13 +98,12 @@ export const t: Record<Locale, Record<string, string>> = {
   zh: {
     siteName: 'Considered',
     slogan: '拣选，而非罗列。',
-    navCriteria: '收录标准',
+    navCriteria: '宣言',
     navIndex: '目录',
     navAbout: '关于',
-    heroTitleA: '只收用心打磨的',
-    heroTitleB: 'AI 产品',
-    heroSub:
-      '每天都有几十个 AI 产品上线，真正用心做的反而容易被埋没。这里的每一条都在真实使用中，都写清了它特别在哪。不收费上榜，不自动收录。',
+    heroTitleA: '大多数 AI 产品只是加上了 AI。',
+    heroTitleB: '少数在重新定义软件',
+    heroSub: 'AI 产品每天都在发布。多数是迭代。少数在重新思考软件应该如何工作。这里记录的，就是那些少数。',
     currently: '目前收录',
     entries: '件',
     onRadarCount: '件观察中',
@@ -123,13 +150,13 @@ export const t: Record<Locale, Record<string, string>> = {
   ja: {
     siteName: 'Considered',
     slogan: '並べるのではなく、選ぶ。',
-    navCriteria: '基準',
+    navCriteria: 'マニフェスト',
     navIndex: '目録',
     navAbout: 'このサイトについて',
-    heroTitleA: '丁寧に作られた',
-    heroTitleB: 'AIプロダクトだけを',
+    heroTitleA: '多くのAIプロダクトは、AIを足しているだけ。',
+    heroTitleB: 'ソフトウェアを定義し直すのは、ごく少数',
     heroSub:
-      '毎日何十ものAIプロダクトが生まれる中で、本当に丁寧に作られたものほど埋もれやすい。ここにあるのはすべて実際に使い込んでいるものだけ。何が特別かをノートに残しています。有料掲載も自動収録もありません。',
+      'AIプロダクトは毎日生まれています。多くは反復にすぎません。ソフトウェアのあり方を考え直すものは、ごくわずか。ここに記録されるのは、その少数です。',
     currently: '現在',
     entries: '点',
     onRadarCount: '点を観察中',

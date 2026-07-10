@@ -5,6 +5,7 @@ tagline: 渡したソースからだけ答える — すべての文が原文に
 favicon: /images/favicons/notebooklm.png
 category: リサーチ
 tags: [リサーチ, 資料, 学習]
+image: /images/products/notebooklm.png
 platform: [Web, iOS, Android]
 pricing: 無料 + Google One AI サブスクリプション
 related: [granola, marble]
@@ -16,6 +17,8 @@ highlight: >-
   ション」です。NotebookLM は最初の一歩からそれを拒みました。すべてが自分の渡したソースに
   根ざし、すべての文が原文まで遡れる。その信頼こそが、ヘビーな学習ユーザーが離れない理由の
   すべてです。
+pull: >-
+  幻覚を拒むこと。それが核心のプロダクト判断だった。
 scores:
   craft: 3
   originality: 5

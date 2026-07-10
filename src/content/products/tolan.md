@@ -17,6 +17,8 @@ highlight: >-
   the relationship unequal; a human would inevitably get sexualized. An alien dodges both, and
   has a native motive to be curious about your life — which solves companion AI's hardest
   problem: gathering your context naturally, without interrogating you.
+pull: >-
+  The character isn't decoration. It's the product.
 scores:
   craft: 5
   originality: 5

@@ -17,6 +17,8 @@ highlight: >-
   consistent, silky, and finely polished. Simple and practical while genuinely amplifying
   what AI can do. The best AI browser in the industry right now — judged by someone who
   still hasn't switched.
+pull: >-
+  As AI gets stronger, tabs stop being the point.
 scores:
   craft: 5
   originality: 4
