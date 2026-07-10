@@ -164,9 +164,11 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand {
-  font-family: var(--serif);
-  font-size: 1.5rem;
-  letter-spacing: 0.05em;
+  font-family: var(--sans);
+  font-weight: 650;
+  font-size: 1.3125rem;
+  letter-spacing: -0.02em;
+  color: var(--blue);
 }
 
 .brand .brand-dot { color: var(--accent); }
@@ -246,13 +248,6 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink-faint);
 }
 
-.hero-count strong {
-  color: var(--blue);
-  font-family: var(--mono);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  margin-inline: 0.35em;
-}
 
 /* hero 大标题的宝蓝行 */
 .h1-blue { color: var(--blue); }
@@ -322,44 +317,34 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-/* —— 宣言 —— 六句，大字，滚动渐显，隔行右置 */
+/* —— 宣言 —— Apple Music 歌词式：单列，未读灰、读到点亮成蓝 */
 .manifesto {
-  border-top: 1px solid var(--ink);
   padding-block: clamp(4rem, 10vw, 8rem);
 }
 
 .manifesto-line {
   font-family: var(--serif);
-  font-size: clamp(1.75rem, 4.5vw, 3rem);
-  line-height: 1.3;
-  max-width: 22ch;
-  margin-block: clamp(2.75rem, 8vw, 5rem);
-  opacity: 0;
-  transform: translateY(1rem);
-  transition:
-    opacity 1s var(--ease-out),
-    transform 1s var(--ease-out);
+  font-size: clamp(2rem, 5.2vw, 3.6rem);
+  line-height: 1.35;
+  max-width: 26ch;
+  margin-inline: auto;
+  text-align: center;
+  margin-block: clamp(1.75rem, 4.5vw, 2.75rem);
+  color: oklch(76% 0.006 255);
+  transition: color 0.6s var(--ease-out);
 }
 
-.manifesto-line:nth-child(even) {
-  margin-left: auto;
-}
-
-.manifesto-line:last-child {
+.manifesto-line.lit {
   color: var(--blue);
 }
 
-.manifesto-line.in {
-  opacity: 1;
-  transform: none;
+.manifesto-line em {
+  font-style: normal;
+  font-weight: 700;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .manifesto-line {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  .manifesto-line { transition: none; }
 }
 
 /* —— 目录列表 —— */
@@ -367,7 +352,6 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  border-top: 1px solid var(--ink);
   padding-block: 1.25rem 0;
 }
 
@@ -391,7 +375,7 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: clamp(4rem, 10vw, 8rem);
 }
 
-.entry { border-bottom: 1px solid var(--hairline); }
+.entry { border-bottom: 0; }
 
 .entry a {
   display: grid;
@@ -410,6 +394,7 @@ a { color: inherit; text-decoration: none; }
 .entry-shot {
   display: block;
   border: 1px solid var(--hairline);
+  border-radius: 16px;
   background: var(--paper-deep);
   overflow: hidden;
 }
@@ -593,8 +578,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* 元信息表 */
+/* 便当盒：圆角框承装规格 */
 .meta-table {
-  border-top: 1px solid var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  padding: 0.375rem 1.375rem;
+  background: oklch(97.5% 0.002 250 / 0.6);
   margin-bottom: clamp(3rem, 8vw, 5rem);
 }
 
@@ -606,6 +595,8 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid var(--hairline);
   font-size: 0.9375rem;
 }
+
+.meta-table > div:last-child { border-bottom: 0; }
 
 .meta-table > div { font-family: var(--mono); font-size: 0.875rem; }
 
@@ -642,17 +633,23 @@ a { color: inherit; text-decoration: none; }
   list-style: none;
   padding: 0;
   margin-bottom: clamp(4rem, 10vw, 8rem);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  overflow: hidden;
+  background: oklch(97.5% 0.002 250 / 0.6);
 }
 
 .radar-entry {
   border-bottom: 1px solid var(--hairline);
 }
 
+.radar-entry:last-child { border-bottom: 0; }
+
 .radar-entry a {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 0.25rem 1.5rem;
-  padding-block: 1.25rem;
+  padding: 1.25rem 1.375rem;
   align-items: baseline;
 }
 
@@ -751,9 +748,7 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.18em;
   color: var(--ink-soft);
   text-transform: uppercase;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--ink);
-  margin-bottom: 2.25rem;
+  margin-bottom: 1.75rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -779,18 +774,14 @@ a { color: inherit; text-decoration: none; }
 
 .why blockquote p + p { margin-top: 1.5em; }
 
-/* 文中大引语 —— 一篇笔记里最锋利的那句话 */
+/* 文中大引语 —— 一篇笔记里最锋利的那句话；无线条，随文呼吸 */
 .pullquote {
   display: block;
-  margin: clamp(2.5rem, 6vw, 4rem) 0;
-  padding: clamp(1.5rem, 3vw, 2rem) 0;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--hairline);
+  margin: clamp(2rem, 5vw, 3rem) 0;
   font-family: var(--serif);
-  font-size: clamp(1.625rem, 3.6vw, 2.375rem);
-  line-height: 1.3;
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  line-height: 1.4;
   color: var(--ink);
-  max-width: 24ch;
 }
 
 .pullquote::before {
@@ -837,6 +828,7 @@ a { color: inherit; text-decoration: none; }
   margin: 0 0 clamp(3rem, 8vw, 5rem);
   padding: clamp(0.75rem, 2vw, 1.25rem);
   background: var(--paper-deep);
+  border-radius: 16px;
 }
 
 .product-shot::before,
@@ -857,6 +849,7 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   height: auto;
   border: 1px solid var(--hairline);
+  border-radius: 8px;
 }
 
 .shot-caption {
@@ -867,10 +860,10 @@ a { color: inherit; text-decoration: none; }
   text-align: right;
 }
 
-/* —— 观展动线（条目页 prev/next） —— */
+/* —— 观展动线（条目页 prev/next）—— 便当盒两格 */
 .entry-nav {
   display: grid;
-  border-top: 1px solid var(--ink);
+  gap: 1rem;
   margin-bottom: clamp(3rem, 8vw, 5rem);
 }
 
@@ -879,11 +872,16 @@ a { color: inherit; text-decoration: none; }
 }
 
 .entry-nav-cell {
-  padding: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
+  transition: border-color 0.3s var(--ease-out);
 }
+
+a.entry-nav-cell:hover { border-color: var(--blue); }
 
 @media (min-width: 48rem) {
   .entry-nav-next { text-align: right; align-items: flex-end; }
@@ -957,7 +955,7 @@ a.entry-nav-cell:hover .entry-nav-name { color: var(--blue); }
 
 /* —— 页脚 —— */
 footer {
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid var(--hairline);
   padding-block: 2.5rem clamp(3rem, 8vw, 5rem);
   display: flex;
   flex-wrap: wrap;
@@ -993,17 +991,23 @@ footer {
 .related-list {
   list-style: none;
   padding: 0;
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  overflow: hidden;
+  background: oklch(97.5% 0.002 250 / 0.6);
 }
 
 .related-list li {
   border-bottom: 1px solid var(--hairline);
 }
 
+.related-list li:last-child { border-bottom: 0; }
+
 .related-list a {
   display: flex;
   align-items: baseline;
   gap: 0.75rem;
-  padding-block: 1rem;
+  padding: 1rem 1.375rem;
 }
 
 .related-list .prod-ico { align-self: center; }

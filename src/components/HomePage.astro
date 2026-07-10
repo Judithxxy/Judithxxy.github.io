@@ -43,9 +43,7 @@ const jsonLd = JSON.stringify({
     </h1>
     <p class="hero-sub reveal" style="--i: 1">{s.heroSub}</p>
     <p class="hero-count reveal" style="--i: 2">
-      {s.currently}<strong>{products.length}</strong>{s.entries}{
-        radar.length > 0 && <span class="hero-radar"> · {radar.length} {s.onRadarCount}</span>
-      }
+      {s.countLine.replace('{n}', String(products.length)).replace('{m}', String(radar.length))}
     </p>
   </section>
 
