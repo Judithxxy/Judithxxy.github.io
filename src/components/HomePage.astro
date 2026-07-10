@@ -81,13 +81,6 @@ const jsonLd = JSON.stringify({
                 </span>
                 <span class="entry-tagline">{p.data.tagline}</span>
                 <span class="entry-verdict">“{p.data.verdict}”</span>
-                {p.data.tags.length > 0 && (
-                  <span class="entry-tags">
-                    {p.data.tags.map((tag) => (
-                      <span class="tag">{tag}</span>
-                    ))}
-                  </span>
-                )}
                 <span class="entry-cta">{s.editorsNotesCta} <Icon name="arrow-right" /></span>
               </span>
             </a>
