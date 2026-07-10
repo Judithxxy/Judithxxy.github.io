@@ -8,7 +8,9 @@ tags: [websites, landing pages, design]
 image: /images/products/framer.png
 platform: [Web]
 pricing: Free + site plans from $10/mo
+related: [lovable, gamma]
 date: 2026-04-03
+launched: Site builder May 2022 · AI June 2023
 verdict: AI drafts it, and everything still looks designed
 highlight: >-
   Framer approached AI site-building from the design-tool side: the canvas feels like Figma,

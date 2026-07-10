@@ -9,6 +9,7 @@ tags: [kids, learning, creation]
 image: /images/products/marble.jpg
 platform: [iOS / iPad (beta)]
 pricing: Free during beta
+related: [tolan, notebooklm]
 date: 2026-07-08
 verdict: Learning packaged as a world, not a course
 review:

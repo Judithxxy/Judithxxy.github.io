@@ -8,7 +8,9 @@ tags: [building, prototyping, ideas to demos]
 image: /images/products/lovable.png
 platform: [Web]
 pricing: Free tier + subscription (from ~$25/mo)
+related: [framer, gamma]
 date: 2026-05-16
+launched: November 2024
 verdict: Turns an idea into something you can click the same day
 highlight: >-
   Non-engineers don't want code, they want the thing. It hides the repository behind a live

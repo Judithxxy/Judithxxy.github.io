@@ -1,0 +1,222 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Icon from './Icon.astro';
+import { t, LOCALES, type Locale } from '../i18n';
+
+type Product =
+  | CollectionEntry<'products'>
+  | CollectionEntry<'products_zh'>
+  | CollectionEntry<'products_ja'>;
+
+interface NeighborRef {
+  id: string;
+  name: string;
+}
+
+interface Props {
+  locale: Locale;
+  product: Product;
+  prev: NeighborRef | null;
+  next: NeighborRef | null;
+  related: Product[];
+}
+
+const { locale, product, prev, next, related } = Astro.props;
+const s = t[locale];
+const prefix = LOCALES.find((l) => l.code === locale)!.prefix;
+const { Content } = await render(product);
+const d = product.data;
+const dims = d.scores
+  ? [
+      { label: s.craft, icon: 'gem', value: d.scores.craft },
+      { label: s.originality, icon: 'lightbulb', value: d.scores.originality },
+      { label: s.technology, icon: 'cpu', value: d.scores.tech },
+    ]
+  : [];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: d.name,
+  url: d.url,
+  applicationCategory: d.category,
+  operatingSystem: d.platform.join(', '),
+  description: d.tagline,
+  ...(d.image ? { image: new URL(d.image, Astro.site).href } : {}),
+  review: {
+    '@type': 'Review',
+    author: { '@type': 'Organization', name: 'Considered' },
+    inLanguage: locale === 'en' ? 'en' : locale === 'zh' ? 'zh-CN' : 'ja',
+    reviewBody: d.review.join('\n\n'),
+  },
+});
+---
+
+<Base
+  title={`${d.name} — Considered`}
+  description={d.tagline}
+  ogImage={d.image}
+  ogType="article"
+  locale={locale}
+  pagePath={`/p/${product.id}/`}
+>
+  <script type="application/ld+json" set:html={jsonLd} />
+  <a href={`${prefix}/#index`} class="back"><Icon name="arrow-left" /> {s.backToIndex}</a>
+
+  <header class="product-head">
+    {d.status === 'radar' && <p class="product-cat">{s.onRadarBadge}</p>}
+    <h1 transition:name={`name-${product.id}`}>
+      {d.favicon && <img class="title-ico" src={d.favicon} alt="" width="64" height="64" />}
+      {d.name}
+    </h1>
+    <p class="product-tagline">{d.tagline}</p>
+  </header>
+
+  <dl class="meta-table">
+    <div>
+      <dt><Icon name="shapes" /> {s.category}</dt>
+      <dd>{d.category}</dd>
+    </div>
+    <div>
+      <dt><Icon name="devices" /> {s.platform}</dt>
+      <dd>{d.platform.join(' · ')}</dd>
+    </div>
+    <div>
+      <dt><Icon name="tag" /> {s.pricing}</dt>
+      <dd>{d.pricing}</dd>
+    </div>
+    {
+      d.tags.length > 0 && (
+        <div>
+          <dt><Icon name="sparkles" /> {s.goodFor}</dt>
+          <dd class="meta-tags">
+            {d.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </dd>
+        </div>
+      )
+    }
+    <div>
+      <dt><Icon name="link" /> {s.link}</dt>
+      <dd>
+        <a href={d.url} target="_blank" rel="noopener">{new URL(d.url).hostname} <Icon name="arrow-up-right" /></a>
+      </dd>
+    </div>
+    {
+      d.launched && (
+        <div>
+          <dt><Icon name="calendar" /> {s.launched}</dt>
+          <dd>{d.launched}</dd>
+        </div>
+      )
+    }
+  </dl>
+
+  {
+    d.image && (
+      <figure class="product-shot">
+        <img
+          src={d.image}
+          alt={`${d.name} — product visual`}
+          width="1200"
+          height="630"
+          loading="eager"
+          transition:name={`shot-${product.id}`}
+        />
+      </figure>
+    )
+  }
+
+  {
+    dims.length > 0 && (
+      <section class="dims">
+        <div class="section-label">
+          <span>{s.whereItShines}</span>
+        </div>
+        <div class="dims-rows">
+          {dims.map((dim) => (
+            <div class="dim">
+              <span class="dim-label">{dim.label}</span>
+              <span class="dim-scale" role="img" aria-label={`${dim.label}: ${dim.value} / 5`}>
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <span class={n <= dim.value ? 'dim-pip on' : 'dim-pip'}>
+                    <Icon name={dim.icon} />
+                  </span>
+                ))}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="why">
+    <div class="section-label">
+      <span>{d.status === 'radar' ? s.whyWatching : s.editorsNotes}</span>
+    </div>
+    <blockquote>
+      {d.review.map((para) => <p>{para}</p>)}
+    </blockquote>
+  </section>
+
+  <section class="facts">
+    <div class="section-label">
+      <span>{s.atAGlance}</span>
+    </div>
+    <div class="prose">
+      <Content />
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section class="related">
+        <div class="section-label">
+          <span>{s.alsoAppreciate}</span>
+        </div>
+        <ul class="related-list">
+          {related.map((r) => (
+            <li>
+              <a href={`${prefix}/p/${r.id}/`}>
+                {r.data.favicon && <img class="prod-ico" src={r.data.favicon} alt="" loading="lazy" />}
+                <span class="related-name">{r.data.name}</span>
+                <span class="related-verdict">“{r.data.verdict}”</span>
+                <span class="entry-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    d.status === 'collection' && (
+      <nav class="entry-nav" aria-label="Walk the collection">
+        {prev ? (
+          <a href={`${prefix}/p/${prev.id}/`} class="entry-nav-cell">
+            <span class="entry-nav-label"><Icon name="arrow-left" /> {s.newer}</span>
+            <span class="entry-nav-name">{prev.name}</span>
+          </a>
+        ) : (
+          <span class="entry-nav-cell entry-nav-end">
+            <span class="entry-nav-label">{s.newestPiece}</span>
+          </span>
+        )}
+        {next ? (
+          <a href={`${prefix}/p/${next.id}/`} class="entry-nav-cell entry-nav-next">
+            <span class="entry-nav-label">{s.older} <Icon name="arrow-right" /></span>
+            <span class="entry-nav-name">{next.name}</span>
+          </a>
+        ) : (
+          <span class="entry-nav-cell entry-nav-next entry-nav-end">
+            <span class="entry-nav-label">{s.wholeCollection}</span>
+          </span>
+        )}
+      </nav>
+    )
+  }
+</Base>

@@ -7,7 +7,9 @@ category: Research
 tags: [research, documents, study]
 platform: [Web, iOS, Android]
 pricing: Free + Google One AI subscription
+related: [granola, marble]
 date: 2026-05-28
+launched: July 2023
 verdict: Every claim clicks back to the source
 highlight: >-
   For research users the unforgivable failure is AI hallucinating while it teaches you.

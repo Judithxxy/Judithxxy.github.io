@@ -8,7 +8,9 @@ tags: [meetings, notes, work]
 image: /images/products/granola.png
 platform: [macOS, Windows, iOS]
 pricing: Free tier + subscription (~$18/mo)
+related: [notebooklm, wispr-flow]
 date: 2026-07-01
+launched: May 2024
 verdict: It amplifies my notes instead of replacing my thinking
 highlight: >-
   Granola understood that people want AI to capture the meeting without taking the notes away

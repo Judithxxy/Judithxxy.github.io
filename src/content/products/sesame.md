@@ -8,7 +8,9 @@ tags: [conversation, voice, frontier]
 image: /images/products/sesame.jpg
 platform: [iOS, Web]
 pricing: Free (public preview)
+related: [tolan, clicky]
 date: 2026-05-02
+launched: February 2025
 verdict: The first AI voice that doesn't sound like it's reading
 highlight: >-
   Maya sounds like she's thinking — she hesitates, laughs at the right beat, changes tone when

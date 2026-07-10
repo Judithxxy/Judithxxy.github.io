@@ -35,11 +35,22 @@ product entry page.
    notes and AI-guessed scores; replace each as the editor narrates them. The radar
    entries (Clicky, Marble) reflect her real first impressions.
 
-## Language
+## Languages
 
-The site's default language is English — all UI copy, content, and code comments.
-Chinese (and other languages) may be added later via Astro i18n; do not mix languages
-in the default pages.
+Three locales: English (default, at `/`), Simplified Chinese (`/zh/`), Japanese
+(`/ja/`). Never mix languages within one locale's pages.
+
+- UI strings live in `src/i18n.ts` (all three locales in one file)
+- Content: `src/content/products/` (en), `products_zh/`, `products_ja/` — same slugs,
+  same schema; language-neutral fields (name/url/platform/scores/related/date/images)
+  stay identical across locales
+- Pages are shared components (`HomePage.astro`, `ProductPage.astro`) with thin
+  per-locale routes; About pages are written per locale
+- hreflang alternates are emitted in `Base.astro`; the language switcher maps the
+  current path across locales
+- ⚠️ Translations of the editor's notes are drafts until the editor approves them —
+  she reviews zh herself and spot-checks ja before anything ships
+- RSS stays English-only at `/rss.xml`
 
 ## Two tiers
 

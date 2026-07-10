@@ -7,7 +7,9 @@ category: Presentations
 tags: [slides, decks, visual docs]
 platform: [Web]
 pricing: Free (400 credits) + paid plans from ~$10/mo
+related: [framer, lovable]
 date: 2026-04-17
+launched: March 2023
 verdict: A deck you'd actually show, straight from a prompt
 highlight: >-
   Gamma didn't rebuild PowerPoint with AI stapled on — it replaced slides with cards, a format

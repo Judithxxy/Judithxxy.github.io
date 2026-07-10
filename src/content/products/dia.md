@@ -8,7 +8,9 @@ tags: [browsing, research, everyday AI]
 image: /images/products/dia.png
 platform: [macOS (Apple Silicon)]
 pricing: Free + Dia Pro (~$20/mo) for unlimited AI use
+related: [clicky, notebooklm]
 date: 2026-06-12
+launched: Beta June 2025 · public October 2025
 verdict: The clearest answer yet to what an AI-native browser should be
 highlight: >-
   One box where you search, navigate, ask, and transform — a universal entry point, kept

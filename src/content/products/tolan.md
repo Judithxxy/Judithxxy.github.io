@@ -8,7 +8,9 @@ tags: [companionship, wellbeing]
 image: /images/products/tolan.jpg
 platform: [iOS]
 pricing: Free trial + subscription
+related: [sesame, marble]
 date: 2026-06-24
+launched: February 2025
 verdict: An alien character that solves companion AI's hardest problem
 highlight: >-
   Tolan is not a romantic fantasy and not a tool — it's an AI-driven alien. A pet would make

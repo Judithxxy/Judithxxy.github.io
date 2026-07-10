@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+
+
+const X_URL = 'https://x.com/infiniteJX';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/judith-xia-a2321b1b2/';
+const RECOMMEND_EMAIL = 'judithxia0314@gmail.com';
+---
+
+<Base
+  title="このサイトについて — Considered"
+  description="プロダクトを作ることは簡単になり、良いプロダクトを見つけることは難しくなった。Consideredは丁寧に作られたAIプロダクトだけを集めた手作業のコレクションです。"
+  locale="ja"
+  pagePath="/about/"
+>
+  <header class="page-head">
+    <p class="product-cat">About</p>
+    <h1>なぜこのサイトを<span class="full-stop">。</span></h1>
+  </header>
+
+  <div class="about-body">
+    <p>
+      この2年で、AIはソフトウェアを作ることを劇的に簡単にしました。個人開発者や週末プロジェクトが、数日で本物のプロダクトを世に出せる時代です。それ自体は素晴らしいこと。ただ副作用として、毎日何十ものAIプロダクトが登場し、丁寧に作られたものと急ごしらえのものを見分けることが、本当に骨の折れる仕事になりました。
+    </p>
+    <p>
+      従来の発見チャネルはあてになりません。ローンチプラットフォームは組織票と有料プッシュに歪められ、SNSのフィードは宣伝で埋め尽くされ、多くのAIプロダクトには決まった検索キーワードすらない——存在を知らないツールは、検索のしようがないのです。「プロダクトは7回目に流れてきたとき、ようやく試してもらえる」という言葉もあるほど。良いものは埋もれ、ユーザーは麻痺していく。
+    </p>
+    <p>
+      作ることが簡単になるほど、審美眼は希少になります。何が本当に良いのか、なぜ良いのかを見抜く判断力は、モデルのリリースとともにスケールしたりはしません。
+    </p>
+    <p>
+      だからこのサイトは、AIディレクトリサイトとは逆方向に進みます。自動収録はなし、アルゴリズムのランキングもなし、お金で載ることもできません。私自身がプロダクトを使い込み、心から良いと思えたものだけを残し、それぞれの何が特別かを書き留める——レビューというより、ディテールにこだわる作り手への感謝の手紙に近いものです。どれか一つでもあなたの役に立つツールにつながったなら、それで役目は果たせています。
+    </p>
+    <p>
+      もう一つ添えておくと、ここに載っていないことは評価ではありません。載っていないのは、たいてい私がまだ使い込んでいないというだけのことです。
+    </p>
+    <p>この目録が小さいのは意図的で、ゆっくり育つのも意図的です。それは制約ではなく、それこそがプロダクトなのです。</p>
+  </div>
+
+  <section class="about-block" id="editor">
+    <div class="section-label">
+      <span>編集者</span>
+    </div>
+    <div class="about-body">
+      <p>
+        私はAIプロダクトを作ることを仕事にしているプロダクトマネージャーで、仕事の外でも他の人が作ったものを試さずにはいられない性分です。手元に残ったものが、このサイトに並びます。コレクションの成長を見守りたい方、ノートに異論のある方は、こちらへ：
+      </p>
+      <p class="editor-links">
+        <a class="rss-inline" href={X_URL} target="_blank" rel="noopener">X <Icon name="arrow-up-right" /></a>
+        <a class="rss-inline" href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn <Icon name="arrow-up-right" /></a>
+        <a class="rss-inline" href="/rss.xml"><Icon name="rss" /> RSS</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="about-block" id="recommend">
+    <div class="section-label">
+      <span>プロダクトを推薦する</span>
+    </div>
+    <div class="about-body">
+      <p>
+        丁寧に作られたプロダクトを見つけましたか？ぜひ教えてください——ここにある何点かは、誰かの推薦から始まりました。それが何で、なぜ使い続けているのかを添えて：
+        <a class="rss-inline" href={`mailto:${RECOMMEND_EMAIL}`}>{RECOMMEND_EMAIL}</a>。推薦は歓迎です。ただし、枠は売り物ではありません。
+      </p>
+    </div>
+  </section>
+</Base>

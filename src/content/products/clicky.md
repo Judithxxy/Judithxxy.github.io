@@ -9,7 +9,9 @@ tags: [desktop, voice, agents]
 image: /images/products/clicky.jpg
 platform: [macOS]
 pricing: Free + Pro $20/mo
+related: [wispr-flow, dia]
 date: 2026-07-08
+launched: April 2026
 verdict: Genuinely novel AI interaction — watching whether the cursor learns restraint
 review:
   - >-

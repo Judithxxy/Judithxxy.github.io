@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+
+
+const X_URL = 'https://x.com/infiniteJX';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/judith-xia-a2321b1b2/';
+const RECOMMEND_EMAIL = 'judithxia0314@gmail.com';
+---
+
+<Base
+  title="为什么做这个站 — Considered"
+  description="做产品变容易了，找到好产品反而变难了。Considered 是一份人工拣选的 AI 产品收藏。"
+  locale="zh"
+  pagePath="/about/"
+>
+  <header class="page-head">
+    <p class="product-cat">关于</p>
+    <h1>为什么做这个站<span class="full-stop">。</span></h1>
+  </header>
+
+  <div class="about-body">
+    <p>
+      过去两年，AI 让写软件这件事变得前所未有的容易。独立开发者和周末项目几天就能上线一个真产品。这本身是好事，副作用却不是：每天都有几十个
+      AI 产品发布，分辨哪些是用心做的、哪些是仓促攒的，成了一件真正费力的事。
+    </p>
+    <p>
+      旧的发现渠道帮不上忙。发布平台被票仓和付费推广干扰，社交信息流里全是推广，而很多 AI
+      产品根本没有明确的搜索关键词——你没法去搜一个你不知道存在的工具。有种说法是，一个产品要在你眼前出现七次，你才愿意试一次。好产品被埋没，用户变麻木。
+    </p>
+    <p>做产品越容易，品味就越稀缺。判断力——知道什么是真的好、好在哪——不会随模型发布一起规模化。</p>
+    <p>
+      所以这个站和 AI
+      导航站们反着走。这里没有自动收录，没有算法排名，没有人能花钱进来。我亲自用这些产品，留下那些让我真心欣赏的，写清每一件特别在哪——与其说是评测，不如说是写给那些在细节上较真的人的感谢信。如果某一条帮你找到了一个真正有用的工具，它就完成了任务。
+    </p>
+    <p>还有一句值得说清：不在列表里不代表不好。一个产品不在这里，通常只是因为我还没有深入用过它。</p>
+    <p>这份目录小是故意的，长得慢也是故意的。这不是局限，这就是产品本身。</p>
+  </div>
+
+  <section class="about-block" id="editor">
+    <div class="section-label">
+      <span>编辑</span>
+    </div>
+    <div class="about-body">
+      <p>
+        我是一名产品经理，工作是做 AI
+        产品，下班后忍不住把别人做的也都试一遍。留得下来的，就进了这个站。想看着这份收藏慢慢生长，或者想跟哪条笔记抬杠，都可以找到我：
+      </p>
+      <p class="editor-links">
+        <a class="rss-inline" href={X_URL} target="_blank" rel="noopener">X <Icon name="arrow-up-right" /></a>
+        <a class="rss-inline" href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn <Icon name="arrow-up-right" /></a>
+        <a class="rss-inline" href="/rss.xml"><Icon name="rss" /> RSS</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="about-block" id="recommend">
+    <div class="section-label">
+      <span>向我推荐产品</span>
+    </div>
+    <div class="about-body">
+      <p>
+        发现了什么用心做的产品？我真心想看看——这里有好几条就是别人推荐来的。告诉我它是什么、什么让你一直用下去：
+        <a class="rss-inline" href={`mailto:${RECOMMEND_EMAIL}`}>{RECOMMEND_EMAIL}</a>。欢迎推荐；但位置依然不出售。
+      </p>
+    </div>
+  </section>
+</Base>

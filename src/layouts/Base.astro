@@ -2,27 +2,42 @@
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import Icon from '../components/Icon.astro';
+import { t, LOCALES, type Locale } from '../i18n';
 
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
+  locale?: Locale;
+  // Locale-less path of this page (e.g. "/", "/about/", "/p/granola/") for language alternates
+  pagePath?: string;
 }
 
-const { title, description, ogImage, ogType = 'website' } = Astro.props;
+const { title, description, ogImage, ogType = 'website', locale = 'en', pagePath } = Astro.props;
+const s = t[locale];
+const current = LOCALES.find((l) => l.code === locale)!;
+const path =
+  pagePath ??
+  Astro.url.pathname.replace(/^\/(zh|ja)(?=\/|$)/, '').replace(/^$/, '/');
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={current.lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {
+      LOCALES.map((l) => (
+        <link rel="alternate" hreflang={l.lang} href={new URL(`${l.prefix}${path}`, Astro.site)} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={new URL(path, Astro.site)} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
@@ -35,34 +50,81 @@ const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
     {ogImageAbs && <meta name="twitter:image" content={ogImageAbs} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="Considered" href="/rss.xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin />
     <ClientRouter />
   </head>
   <body>
     <div class="wrap">
       <header class="topbar">
-        <a href="/" class="brand">Considered<span class="brand-dot">.</span></a>
-        <nav>
-          <a href="/#criteria">Criteria</a>
-          <a href="/#index">Index</a>
-          <a href="/about/">About</a>
-        </nav>
+        <a href={`${current.prefix}/`} class="brand">Considered<span class="brand-dot">.</span></a>
+        <div class="topbar-right">
+          <nav>
+            <a href={`${current.prefix}/#criteria`}>{s.navCriteria}</a>
+            <a href={`${current.prefix}/#index`}>{s.navIndex}</a>
+            <a href={`${current.prefix}/about/`}>{s.navAbout}</a>
+          </nav>
+          <select class="lang-select" aria-label="Language">
+            {
+              LOCALES.map((l) => (
+                <option value={l.code} selected={l.code === locale} lang={l.lang}>
+                  {l.label}
+                </option>
+              ))
+            }
+          </select>
+        </div>
       </header>
       <slot />
       <footer>
-        <p class="colophon">
-          One person's collection of AI products made with care. No paid placements, ever.
-        </p>
-        <p>
-          <a class="rss-inline" href="/rss.xml"><Icon name="rss" /> Subscribe via RSS</a>
-          <span class="foot-sep">·</span> © 2026 Considered — working title
+        <div class="foot-brand">
+          <span class="brand">Considered<span class="brand-dot">.</span></span>
+          <p class="foot-slogan">{s.slogan}</p>
+        </div>
+        <p class="foot-meta">
+          <a class="rss-inline" href="/rss.xml"><Icon name="rss" /> {s.subscribeRss}</a>
+          <span class="foot-sep">·</span> © 2026 Considered — {s.footerNote}
         </p>
       </footer>
     </div>
+    <script is:inline>
+      (function () {
+        var KEY = 'considered-locale';
+        function localeOf(p) {
+          var m = p.match(/^\/(zh|ja)(?=\/|$)/);
+          return m ? m[1] : 'en';
+        }
+        function pathIn(p, target) {
+          var bare = p.replace(/^\/(zh|ja)(?=\/|$)/, '') || '/';
+          return (target === 'en' ? '' : '/' + target) + bare;
+        }
+        // First visit on a default-language page: follow the browser language.
+        // Landing directly on /zh/ or /ja/ is treated as explicit intent — never hijacked.
+        try {
+          if (!localStorage.getItem(KEY) && localeOf(location.pathname) === 'en') {
+            var nav = (navigator.language || '').toLowerCase();
+            var want = nav.indexOf('zh') === 0 ? 'zh' : nav.indexOf('ja') === 0 ? 'ja' : 'en';
+            localStorage.setItem(KEY, want);
+            if (want !== 'en') {
+              location.replace(pathIn(location.pathname, want));
+              return;
+            }
+          }
+        } catch (e) {}
+        function bind() {
+          var sel = document.querySelector('.lang-select');
+          if (!sel) return;
+          sel.value = localeOf(location.pathname);
+          sel.onchange = function () {
+            try {
+              localStorage.setItem(KEY, sel.value);
+            } catch (e) {}
+            location.href = pathIn(location.pathname, sel.value);
+          };
+        }
+        bind();
+        document.addEventListener('astro:page-load', bind);
+      })();
+    </script>
   </body>
 </html>

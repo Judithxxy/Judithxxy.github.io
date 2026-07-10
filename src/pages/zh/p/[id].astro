@@ -1,0 +1,10 @@
+---
+import ProductPage from '../../../components/ProductPage.astro';
+import { buildProductPaths } from '../../../lib/productPaths';
+
+export async function getStaticPaths() {
+  return buildProductPaths('products_zh');
+}
+---
+
+<ProductPage locale="zh" {...Astro.props} />

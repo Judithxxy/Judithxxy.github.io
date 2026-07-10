@@ -8,7 +8,9 @@ tags: [writing, voice input, productivity]
 image: /images/products/wispr-flow.jpg
 platform: [macOS, Windows, iOS, Android]
 pricing: Free tier + Pro $15/mo ($12/mo billed annually)
+related: [clicky, granola]
 date: 2026-07-08
+launched: October 2024
 verdict: It won me over before the onboarding ended
 highlight: >-
   You can genuinely whisper, vague and half-formed, and precise text comes out — not a raw

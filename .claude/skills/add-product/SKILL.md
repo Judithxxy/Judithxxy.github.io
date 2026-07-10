@@ -18,8 +18,11 @@ Output: one file at `src/content/products/<slug>.md` + a local preview for sign-
 ## Steps
 
 1. **Gather facts**: fill in whatever the editor didn't provide (platform, pricing,
-   category, tagline material) from the product's official site. If something can't be
-   verified, ask — never guess.
+   category, tagline material) from the product's official site. Verify the product's
+   public launch date via web search (official announcements / Product Hunt / press)
+   and set it as `launched` (e.g. "May 2024") — leave unset if unverifiable, never
+   guess. `date` is internal (ordering/RSS only, not displayed). If something can't
+   be verified, ask.
 2. **Distill the editor's notes (most important)**:
    - `review` field = 2–4 English paragraphs distilled from her telling. Organize and
      tighten, keep her angle and specifics (the anecdotes, the resistance-then-conversion,
@@ -47,8 +50,13 @@ Output: one file at `src/content/products/<slug>.md` + a local preview for sign-
 4. **Write the "At a glance" body**: three fixed sections — `## What it does`,
    `## Details worth noting`, `## Who it's for`. Verifiable, objective statements only;
    no evaluative adjectives.
-5. **Create the file**: slug = lowercase product name (hyphenated). Frontmatter schema
-   is in `src/content.config.ts`. `date` = today.
+5. **Create the files**: slug = lowercase product name (hyphenated). Frontmatter
+   schema is in `src/content.config.ts`. `date` = today. Set `related` (1–2 slugs of
+   entries a reader of this one would also appreciate, with a reason you can defend).
+   Then create the zh and ja translations at `src/content/products_zh/<slug>.md` and
+   `products_ja/<slug>.md` — same schema, language-neutral fields identical, notes
+   translated in the editor's voice (zh: natural, no translationese; ja: です・ます調).
+   Translations are drafts until the editor approves.
 6. **Draft the social post**: write `social/<slug>.md` with two drafts sharing the same
    substance —
    - an English X post: open with the verdict (or the notes' sharpest line), 2–3

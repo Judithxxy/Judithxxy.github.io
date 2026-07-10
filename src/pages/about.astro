@@ -1,11 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+
+
+const X_URL = 'https://x.com/infiniteJX';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/judith-xia-a2321b1b2/';
+const RECOMMEND_EMAIL = 'judithxia0314@gmail.com';
 ---
 
 <Base
   title="Why this exists — Considered"
-  description="Building products got easy. Finding the good ones got hard. Considered is one person's collection of AI products made with care, written up with appreciation."
+  description="Building products got easy. Finding the good ones got hard. Considered is a hand-picked collection of AI products made with care."
+  locale="en"
+  pagePath="/about/"
 >
   <header class="page-head">
     <p class="product-cat">About</p>
@@ -38,12 +45,44 @@ import Icon from '../components/Icon.astro';
       details. If an entry hands you one tool that genuinely helps, it did its job.
     </p>
     <p>
+      One more thing worth saying: absence isn't a verdict. If a product isn't here, it usually
+      just means I haven't lived with it yet.
+    </p>
+    <p>
       The index is small on purpose, and it grows slowly. That's not a limitation. That's the
       product.
     </p>
-    <p class="about-sign">
-      — The editor, a product manager working on AI products
-      <a class="rss-inline" href="/rss.xml"><Icon name="rss" /> Subscribe via RSS</a>
-    </p>
   </div>
+
+  <section class="about-block" id="editor">
+    <div class="section-label">
+      <span>The editor</span>
+    </div>
+    <div class="about-body">
+      <p>
+        I'm a product manager who builds AI products for a living — and can't stop trying
+        everyone else's after hours. This site is where the keepers go. If you want to see the
+        collection grow, or argue with a note, I'm around:
+      </p>
+      <p class="editor-links">
+        <a class="rss-inline" href={X_URL} target="_blank" rel="noopener">X <Icon name="arrow-up-right" /></a>
+        <a class="rss-inline" href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn <Icon name="arrow-up-right" /></a>
+        <a class="rss-inline" href="/rss.xml"><Icon name="rss" /> RSS</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="about-block" id="recommend">
+    <div class="section-label">
+      <span>Recommend a product</span>
+    </div>
+    <div class="about-body">
+      <p>
+        Found something made with care? I'd genuinely love to see it — several entries here
+        started as someone's recommendation. Tell me what it is and what made you keep it:
+        <a class="rss-inline" href={`mailto:${RECOMMEND_EMAIL}`}>{RECOMMEND_EMAIL}</a>.
+        Recommendations are welcome; placement still isn't for sale.
+      </p>
+    </div>
+  </section>
 </Base>
