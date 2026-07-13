@@ -2,6 +2,7 @@
 import { render, type CollectionEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Icon from './Icon.astro';
+import PixelIcon from './PixelIcon.astro';
 import { t, LOCALES, type Locale } from '../i18n';
 
 type Product =
@@ -30,8 +31,8 @@ const d = product.data;
 const dims = d.scores
   ? [
       { label: s.craft, icon: 'gem', value: d.scores.craft },
-      { label: s.originality, icon: 'lightbulb', value: d.scores.originality },
-      { label: s.technology, icon: 'cpu', value: d.scores.tech },
+      { label: s.originality, icon: 'bulb', value: d.scores.originality },
+      { label: s.technology, icon: 'chip', value: d.scores.tech },
     ]
   : [];
 
@@ -143,7 +144,7 @@ const jsonLd = JSON.stringify({
               <span class="dim-scale" role="img" aria-label={`${dim.label}: ${dim.value} / 5`}>
                 {[1, 2, 3, 4, 5].map((n) => (
                   <span class={n <= dim.value ? 'dim-pip on' : 'dim-pip'}>
-                    <Icon name={dim.icon} />
+                    <PixelIcon name={dim.icon} />
                   </span>
                 ))}
               </span>

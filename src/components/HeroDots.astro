@@ -1,0 +1,169 @@
+---
+// Hero 像素尘背景 —— Originkit「Pixel Card」（源自 React Bits PixelCard）的移植。
+// 像素网格从中心径向扫开、按各自节奏长出，随后持续微闪（shimmer）。
+// 保留原组件的 Pixel 类与 60fps 循环、组件默认参数（gap 6 / pixelSize 2 /
+// speed 80 / 0.8s easeOut / appearFrom middle）；改动：React 壳剥掉、
+// 触发从 hover 改为加载自动播放、调色板换成主题蓝、滚出视野暂停。
+---
+
+<canvas class="hero-dots" aria-hidden="true"></canvas>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const cv = document.querySelector('.hero-dots');
+    if (!cv) return;
+    if (window.__heroDotsStop) window.__heroDotsStop();
+
+    const ctx = cv.getContext('2d');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 组件默认值（原调色板是玫瑰色系，这里换主题蓝的三档深浅）
+    const COLORS = ['#D9DFF7', '#A9B6EE', '#2B44CF'];
+    const GAP = 6;
+    const PIXEL_SIZE = 2;
+    const SPEED = 80;
+    const DURATION_MS = 800;
+
+    // cubic-bezier easeOut [0,0,0.58,1] —— 原组件的默认 transition
+    const cubicBezier = (x1, y1, x2, y2) => {
+      const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
+      const cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+      const fx = (t) => ((ax * t + bx) * t + cx) * t;
+      const dfx = (t) => (3 * ax * t + 2 * bx) * t + cx;
+      return (x) => {
+        if (x <= 0) return 0;
+        if (x >= 1) return 1;
+        let t = x;
+        for (let i = 0; i < 8; i++) {
+          const e = fx(t) - x, d = dfx(t);
+          if (Math.abs(e) < 1e-5 || d === 0) break;
+          t -= e / d;
+        }
+        return ((ay * t + by) * t + cy) * t;
+      };
+    };
+    const easeFn = cubicBezier(0, 0, 0.58, 1);
+
+    const effectiveSpeed = reduced ? 0 : Math.min(SPEED, 100) * 0.002;
+
+    class Pixel {
+      constructor(x, y, color, delay) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.speed = (Math.random() * 0.8 + 0.1) * effectiveSpeed;
+        this.size = 0;
+        const factor = PIXEL_SIZE / 2;
+        this.minSize = 0.5 * factor;
+        this.maxSizeInteger = PIXEL_SIZE;
+        this.maxSize = Math.random() * (PIXEL_SIZE - this.minSize) + this.minSize;
+        this.delay = delay;
+        this.counter = 0;
+        this.counterStep = Math.random() * 4 + (cv.width + cv.height) * 0.01;
+        this.isReverse = false;
+        this.isShimmer = false;
+        this.growStart = null;
+      }
+      draw() {
+        const centerOffset = this.maxSizeInteger * 0.5 - this.size * 0.5;
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x + centerOffset, this.y + centerOffset, this.size, this.size);
+      }
+      appear(now) {
+        if (this.counter <= this.delay) {
+          this.counter += this.counterStep;
+          return;
+        }
+        if (!this.isShimmer) {
+          if (this.growStart === null) this.growStart = now;
+          const p = Math.min(1, (now - this.growStart) / DURATION_MS);
+          this.size = easeFn(p) * this.maxSize;
+          if (p >= 1) this.isShimmer = true;
+        }
+        if (this.isShimmer) this.shimmer();
+        this.draw();
+      }
+      shimmer() {
+        if (this.size >= this.maxSize) this.isReverse = true;
+        else if (this.size <= this.minSize) this.isReverse = false;
+        this.size += this.isReverse ? -this.speed : this.speed;
+      }
+    }
+
+    let pixels = [];
+    const initPixels = () => {
+      const r = cv.getBoundingClientRect();
+      const width = Math.floor(r.width);
+      const height = Math.floor(r.height);
+      cv.width = width;
+      cv.height = height;
+      pixels = [];
+      let idx = 0;
+      for (let x = 0; x < width; x += GAP) {
+        for (let y = 0; y < height; y += GAP) {
+          const color = COLORS[idx % COLORS.length];
+          idx++;
+          // appearFrom: middle —— 按到中心的距离错峰
+          const dx = x - width / 2;
+          const dy = y - height / 2;
+          const delay = reduced ? 0 : Math.sqrt(dx * dx + dy * dy);
+          pixels.push(new Pixel(x, y, color, delay));
+        }
+      }
+    };
+
+    const drawStaticFrame = () => {
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      for (const p of pixels) {
+        p.size = p.maxSize;
+        p.draw();
+      }
+    };
+
+    initPixels();
+
+    if (reduced) {
+      drawStaticFrame();
+      const onResizeStatic = () => { initPixels(); drawStaticFrame(); };
+      window.addEventListener('resize', onResizeStatic, { passive: true });
+      window.__heroDotsStop = () => {
+        window.removeEventListener('resize', onResizeStatic);
+        window.__heroDotsStop = null;
+      };
+      return;
+    }
+
+    let raf = 0;
+    let timePrevious = performance.now();
+    const timeInterval = 1000 / 60; // 原组件的 60fps 节流
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      const timeNow = performance.now();
+      const timePassed = timeNow - timePrevious;
+      if (timePassed < timeInterval) return;
+      timePrevious = timeNow - (timePassed % timeInterval);
+      const r = cv.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return; // 滚出视野暂停
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      for (let i = 0; i < pixels.length; i++) pixels[i].appear(timeNow);
+    };
+    raf = requestAnimationFrame(loop);
+
+    let resizePending = false;
+    const onResize = () => {
+      if (resizePending) return;
+      resizePending = true;
+      requestAnimationFrame(() => {
+        resizePending = false;
+        initPixels();
+      });
+    };
+    window.addEventListener('resize', onResize, { passive: true });
+
+    window.__heroDotsStop = () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', onResize);
+      window.__heroDotsStop = null;
+    };
+  })();
+</script>
