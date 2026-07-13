@@ -2,10 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Icon from './Icon.astro';
-import Manifesto from './Manifesto.astro';
-import TextWave from './TextWave.astro';
-import HeroLines from './HeroLines.astro';
-import HeroDots from './HeroDots.astro';
+import StickerField from './StickerField.astro';
 import { t, collectionFor, LOCALES, type Locale } from '../i18n';
 
 interface Props {
@@ -21,21 +18,20 @@ const all = (await getCollection(collectionFor[locale])).sort(
 );
 const products = all.filter((p) => p.data.status === 'collection');
 const radar = all.filter((p) => p.data.status === 'radar');
-// 卡片架：最新 5 件，Aave 式扇形摊放
-const shelf = products.slice(0, 5);
-const fullStop = locale === 'en' ? '.' : '。';
+// 标本卡：最新 6 件正式收录
+const shelf = products.slice(0, 6);
 
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Considered',
+  name: 'Grain',
   url: Astro.site?.href,
   description: s.metaDescription,
 });
 ---
 
 <Base
-  title={`Considered — ${locale === 'en' ? 'only AI products made with care' : locale === 'zh' ? '只收用心打磨的 AI 产品' : '丁寧に作られたAIプロダクトだけを'}`}
+  title={`Grain — ${locale === 'en' ? 'AI products that get something right' : locale === 'zh' ? '只收真正做对了的 AI 产品' : '核心を捉えたAIプロダクトだけを'}`}
   description={s.metaDescription}
   ogImage="/images/og-home.png"
   locale={locale}
@@ -43,29 +39,20 @@ const jsonLd = JSON.stringify({
 >
   <script type="application/ld+json" set:html={jsonLd} />
   <section class="hero">
-    <HeroDots />
-    <HeroLines />
-    <h1 class="reveal" style="--i: 0">
-      {s.heroTitleA}<br /><span class="h1-blue">{s.heroTitleB}</span><span class="full-stop">{fullStop}</span>
+    <h1>
+      {s.heroTitleA}<br />{s.heroMarkPre}<span class="mark">{s.heroMarkText}</span>{s.heroMarkPost}
     </h1>
-    <p class="hero-sub reveal" style="--i: 1">{s.heroSub}</p>
-    <p class="hero-count reveal" style="--i: 2">
-      {s.countLine.replace('{n}', String(products.length)).replace('{m}', String(radar.length))}
-    </p>
+    <p class="hero-sub">{s.heroSub}</p>
+    <StickerField locale={locale} productCount={products.length} radarCount={radar.length} />
   </section>
 
-  <Manifesto locale={locale} />
-
-  <TextWave />
 
   <section class="shelf" aria-label={s.latestAddition}>
-    <div class="index-head">
-      <h2>{s.latestAddition}</h2>
-    </div>
     <ol class="cards">
       {
         shelf.map((p) => (
           <li class="card">
+            <span class="tape" aria-hidden="true" />
             <a href={`${prefix}/p/${p.id}/`}>
               {p.data.image ? (
                 <span class="card-shot">
@@ -100,12 +87,30 @@ const jsonLd = JSON.stringify({
       <h2>{s.index}</h2>
     </div>
     <ol class="catalog">
+      <li class="catalog-group" aria-hidden="true">{s.groupPioneers}</li>
       {
         products.map((p) => (
           <li class="catalog-row">
             <a href={`${prefix}/p/${p.id}/`}>
-              {p.data.favicon && <img class="prod-ico" src={p.data.favicon} alt="" loading="lazy" />}
-              <span class="catalog-name">{p.data.name}</span>
+              <span class="catalog-name" transition:name={`name-${p.id}`}>
+                {p.data.favicon && <img class="prod-ico" src={p.data.favicon} alt="" loading="lazy" />}
+                {p.data.name}
+              </span>
+              <span class="catalog-tagline">{p.data.tagline}</span>
+              <span class="entry-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
+            </a>
+          </li>
+        ))
+      }
+      <li class="catalog-group" aria-hidden="true">{s.onTheRadar}</li>
+      {
+        radar.map((p) => (
+          <li class="catalog-row">
+            <a href={`${prefix}/p/${p.id}/`}>
+              <span class="catalog-name" transition:name={`name-${p.id}`}>
+                {p.data.favicon && <img class="prod-ico" src={p.data.favicon} alt="" loading="lazy" />}
+                {p.data.name}
+              </span>
               <span class="catalog-tagline">{p.data.tagline}</span>
               <span class="entry-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
             </a>
@@ -116,58 +121,27 @@ const jsonLd = JSON.stringify({
   </section>
 
   <script is:inline data-astro-rerun>
-    // 卡片架发牌入场：进入视野时从叠放态旋开摊平（大屏 + 允许动效时才启用）
+    // 标本卡入场：进入视野时逐张落纸
     (() => {
       const cards = document.querySelector('.cards');
       if (!cards) return;
-      if (window.__dealCheck) {
-        window.removeEventListener('scroll', window.__dealCheck);
-        window.__dealCheck = null;
+      if (window.__settleCheck) {
+        window.removeEventListener('scroll', window.__settleCheck);
+        window.__settleCheck = null;
       }
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const wide = window.matchMedia('(min-width: 64rem)').matches;
-      if (reduced || !wide) {
-        cards.classList.add('dealt');
-        return;
-      }
-      cards.classList.add('will-deal');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      cards.classList.add('will-settle');
       const check = () => {
-        if (cards.getBoundingClientRect().top < window.innerHeight * 0.82) {
-          cards.classList.remove('will-deal');
-          cards.classList.add('dealt');
+        if (cards.getBoundingClientRect().top < window.innerHeight * 0.85) {
+          cards.classList.remove('will-settle');
+          cards.classList.add('on');
           window.removeEventListener('scroll', check);
-          window.__dealCheck = null;
+          window.__settleCheck = null;
         }
       };
-      window.__dealCheck = check;
+      window.__settleCheck = check;
       window.addEventListener('scroll', check, { passive: true });
       check();
     })();
   </script>
-
-  {
-    radar.length > 0 && (
-      <section id="radar">
-        <div class="index-head">
-          <h2><Icon name="radar" /> {s.onTheRadar}</h2>
-          <p class="radar-note">{s.radarNote}</p>
-        </div>
-        <ol class="radar-list">
-          {radar.map((p) => (
-            <li class="radar-entry">
-              <a href={`${prefix}/p/${p.id}/`}>
-                <span class="radar-name" transition:name={`name-${p.id}`}>
-                  {p.data.favicon && <img class="prod-ico" src={p.data.favicon} alt="" loading="lazy" />}
-                  {p.data.name}
-                </span>
-                <span class="radar-meta">{p.data.category}</span>
-                <span class="radar-verdict">{p.data.verdict}</span>
-                <span class="entry-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </section>
-    )
-  }
 </Base>

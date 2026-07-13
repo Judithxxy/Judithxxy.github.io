@@ -8,9 +8,9 @@ export async function GET(context: APIContext) {
   );
 
   return rss({
-    title: 'Considered',
+    title: 'Grain',
     description:
-      "A personal collection of AI products made with care — used, appreciated, and written up in the editor's own words. No paid placements.",
+      "A personal collection of AI products that get something right — used, appreciated, and written up in the editor's own words. No paid placements.",
     site: context.site!,
     items: products.map((p) => ({
       title: `${p.data.status === 'radar' ? 'On the radar: ' : ''}${p.data.name} — ${p.data.tagline}`,

@@ -1,0 +1,273 @@
+---
+// 贴纸场 —— hero 的小字信息做成可抓可甩的模切贴纸（迷你字体标本）。
+// 模切底 = 把词渲到 canvas 后沿圆环反复盖印白色剪影向外膨胀，贴合真实字形。
+// 物理：拖拽跟手、甩出带动量与旋转、碰边回弹；reduced-motion 静态散布。
+import { t, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  productCount: number;
+  radarCount: number;
+}
+
+const { locale, productCount, radarCount } = Astro.props;
+const words = t[locale].stickers
+  .replace('{n}', String(productCount))
+  .replace('{m}', String(radarCount))
+  .split('|');
+---
+
+<div class="sticker-field" id="stickers" aria-label={words.join(' · ')} data-words={JSON.stringify(words)}></div>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const field = document.getElementById('stickers');
+    if (!field) return;
+    if (window.__stickersStop) window.__stickersStop();
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const words = JSON.parse(field.dataset.words);
+    const css = getComputedStyle(document.documentElement);
+    const serif = css.getPropertyValue('--serif').trim() || 'serif';
+    const sans = css.getPropertyValue('--sans').trim() || 'sans-serif';
+    const hand = css.getPropertyValue('--hand').trim() || 'cursive';
+    // 每张一种字体一支油墨（迷你字体标本）；位置为场内比例坐标
+    const STYLE = [
+      { font: sans, style: '700', color: '#2440c8', x: 0.16, y: 0.28, rot: -5 },
+      { font: hand, style: '400', color: '#ff4318', x: 0.72, y: 0.26, rot: 3 },
+      { font: sans, style: '600', color: '#0e9b6c', x: 0.33, y: 0.7, rot: 2 },
+      { font: serif, style: 'italic 400', color: '#221f19', x: 0.62, y: 0.72, rot: -3 },
+    ];
+    const DEFS = words.map((word, i) => ({ word, ...STYLE[i % STYLE.length] }));
+    // 非文字贴纸：emoji（🌾 = grain 本尊）
+    DEFS.push(
+      { word: '🌾', emoji: true, x: 0.46, y: 0.3, rot: -8 },
+      { word: '⭐', emoji: true, x: 0.9, y: 0.62, rot: 10 },
+      { word: '👀', emoji: true, x: 0.07, y: 0.64, rot: 6 },
+      { word: '✨', emoji: true, x: 0.55, y: 0.68, rot: -6 },
+      { word: '✌️', emoji: true, x: 0.25, y: 0.34, rot: 8 }
+    );
+    const FRICTION = 0.92, BOUNCE = 0.55, MIN_VEL = 0.05, THROW = 0.7;
+
+    // emoji 贴纸：emoji 不吃 fillStyle，白色模切底用它的 alpha 剪影反复盖印
+    const renderEmojiSticker = (def, size, dpr) => {
+      const border = Math.max(7, Math.round(size * 0.14));
+      const pad = border + 8;
+      const box = size + pad * 2;
+      const glyph = document.createElement('canvas');
+      glyph.width = glyph.height = Math.ceil(box * dpr);
+      const gctx = glyph.getContext('2d');
+      gctx.scale(dpr, dpr);
+      gctx.font = `${size}px serif`;
+      gctx.textAlign = 'center';
+      gctx.textBaseline = 'middle';
+      gctx.fillText(def.word, box / 2, box / 2 + size * 0.06);
+      const silu = document.createElement('canvas');
+      silu.width = silu.height = glyph.width;
+      const sctx = silu.getContext('2d');
+      sctx.drawImage(glyph, 0, 0);
+      sctx.globalCompositeOperation = 'source-in';
+      sctx.fillStyle = '#fffdf6';
+      sctx.fillRect(0, 0, silu.width, silu.height);
+      const cv = document.createElement('canvas');
+      cv.width = cv.height = glyph.width;
+      const ctx = cv.getContext('2d');
+      ctx.save();
+      ctx.shadowColor = 'rgba(34,31,25,0.3)';
+      ctx.shadowBlur = 7 * dpr;
+      ctx.shadowOffsetY = 3 * dpr;
+      ctx.drawImage(silu, 0, 0);
+      ctx.restore();
+      for (let r = border * dpr; r > 0.5; r -= dpr) {
+        const stamps = Math.max(16, Math.ceil(r * 2));
+        for (let a = 0; a < stamps; a++) {
+          const ang = (a / stamps) * Math.PI * 2;
+          ctx.drawImage(silu, Math.cos(ang) * r, Math.sin(ang) * r);
+        }
+      }
+      ctx.drawImage(glyph, 0, 0);
+      cv.style.width = box + 'px';
+      cv.style.height = box + 'px';
+      return { cv, w: box, h: box };
+    };
+
+    const renderSticker = (def, fontSize) => {
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      if (def.emoji) return renderEmojiSticker(def, Math.round(fontSize * 1.5), dpr);
+      const border = Math.max(6, Math.round(fontSize * 0.18));
+      const fontStr = `${def.style} ${fontSize}px ${def.font}`;
+      const meas = document.createElement('canvas').getContext('2d');
+      meas.font = fontStr;
+      const m = meas.measureText(def.word);
+      const asc = m.actualBoundingBoxAscent || fontSize * 0.8;
+      const desc = m.actualBoundingBoxDescent || fontSize * 0.2;
+      const pad = border + 6;
+      const w = Math.ceil(m.width + pad * 2);
+      const h = Math.ceil(asc + desc + pad * 2);
+      const cv = document.createElement('canvas');
+      cv.width = Math.ceil(w * dpr);
+      cv.height = Math.ceil(h * dpr);
+      const ctx = cv.getContext('2d');
+      ctx.scale(dpr, dpr);
+      ctx.font = fontStr;
+      ctx.textBaseline = 'alphabetic';
+      const bx = pad, by = pad + asc;
+      ctx.save();
+      ctx.shadowColor = 'rgba(34,31,25,0.3)';
+      ctx.shadowBlur = 7;
+      ctx.shadowOffsetY = 3;
+      ctx.fillStyle = '#fffdf6';
+      ctx.fillText(def.word, bx, by);
+      ctx.restore();
+      ctx.fillStyle = '#fffdf6';
+      for (let r = border; r > 0.5; r -= 1) {
+        const stamps = Math.max(16, Math.ceil(r * 3));
+        for (let a = 0; a < stamps; a++) {
+          const ang = (a / stamps) * Math.PI * 2;
+          ctx.fillText(def.word, bx + Math.cos(ang) * r, by + Math.sin(ang) * r);
+        }
+      }
+      ctx.fillStyle = def.color;
+      ctx.fillText(def.word, bx, by);
+      cv.style.width = w + 'px';
+      cv.style.height = h + 'px';
+      return { cv, w, h };
+    };
+
+    const items = [];
+    let W = 1, H = 1;
+    const measureField = () => {
+      const r = field.getBoundingClientRect();
+      W = r.width || Math.min(1280, screen.width || 1280);
+      H = r.height || 176;
+    };
+
+    const place = (it) => {
+      it.cv.style.transform = `translate(${it.x}px, ${it.y}px) rotate(${it.rot}deg) scale(${it.scale})`;
+    };
+
+    let drag = null;
+    const timeouts = [];
+    const bindDrag = (it) => {
+      it.cv.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        field.appendChild(it.cv);
+        it.dragging = true;
+        it.vx = it.vy = 0;
+        const r = field.getBoundingClientRect();
+        drag = { it, dx: e.clientX - r.left - it.x, dy: e.clientY - r.top - it.y, lastX: e.clientX, lastY: e.clientY, moved: 0 };
+        it.cv.setPointerCapture(e.pointerId);
+      });
+      it.cv.addEventListener('pointermove', (e) => {
+        if (!drag || drag.it !== it) return;
+        const r = field.getBoundingClientRect();
+        it.tx = e.clientX - r.left - drag.dx;
+        it.ty = e.clientY - r.top - drag.dy;
+        drag.moved += Math.hypot(e.clientX - drag.lastX, e.clientY - drag.lastY);
+        drag.lastX = e.clientX;
+        drag.lastY = e.clientY;
+      });
+      const up = (e) => {
+        if (!drag || drag.it !== it) return;
+        it.dragging = false;
+        it.vx *= THROW;
+        it.vy *= THROW;
+        it.vr = (Math.random() - 0.5) * (drag.moved < 4 ? 3 : Math.hypot(it.vx, it.vy) * 0.4);
+        it.cv.releasePointerCapture(e.pointerId);
+        drag = null;
+      };
+      it.cv.addEventListener('pointerup', up);
+      it.cv.addEventListener('pointercancel', up);
+    };
+
+    const build = () => {
+      field.textContent = '';
+      items.length = 0;
+      measureField();
+      const fontSize = Math.max(20, Math.min(30, W * 0.027));
+      DEFS.forEach((def, i) => {
+        const { cv, w, h } = renderSticker(def, fontSize);
+        cv.setAttribute('aria-hidden', 'true');
+        field.appendChild(cv);
+        const it = {
+          def, cv, w, h,
+          x: Math.max(0, Math.min(W - w, def.x * W - w / 2)),
+          y: Math.max(0, Math.min(H - h, def.y * H - h / 2)),
+          vx: 0, vy: 0, rot: def.rot, vr: 0,
+          scale: reduced ? 1 : 0, dragging: false, tx: 0, ty: 0,
+        };
+        place(it);
+        items.push(it);
+        bindDrag(it);
+        if (!reduced) {
+          timeouts.push(setTimeout(() => { it.appearing = true; }, 300 + i * 140));
+          timeouts.push(setTimeout(() => {
+            if (it.scale < 1) { it.scale = 1; it.appearing = false; place(it); }
+          }, 1400 + i * 140));
+        }
+      });
+    };
+
+    let raf = 0;
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      for (const it of items) {
+        if (it.appearing && it.scale < 1) {
+          it.scale += (1 - it.scale) * 0.12;
+          if (it.scale > 0.995) { it.scale = 1; it.appearing = false; }
+          place(it);
+        }
+        if (it.dragging) {
+          const nx = it.x + (it.tx - it.x) * 0.35;
+          const ny = it.y + (it.ty - it.y) * 0.35;
+          it.vx = nx - it.x;
+          it.vy = ny - it.y;
+          it.x = nx;
+          it.y = ny;
+          place(it);
+          continue;
+        }
+        const moving = Math.abs(it.vx) >= MIN_VEL || Math.abs(it.vy) >= MIN_VEL || Math.abs(it.vr) >= 0.02;
+        if (!moving) continue;
+        it.x += it.vx;
+        it.y += it.vy;
+        it.rot += it.vr;
+        if (it.x < 0) { it.x = 0; it.vx = -it.vx * BOUNCE; }
+        else if (it.x > W - it.w) { it.x = W - it.w; it.vx = -it.vx * BOUNCE; }
+        if (it.y < 0) { it.y = 0; it.vy = -it.vy * BOUNCE; }
+        else if (it.y > H - it.h) { it.y = H - it.h; it.vy = -it.vy * BOUNCE; }
+        it.vx *= FRICTION;
+        it.vy *= FRICTION;
+        it.vr *= 0.92;
+        place(it);
+      }
+    };
+
+    const start = () => {
+      build();
+      if (reduced) {
+        items.forEach((it) => { it.scale = 1; place(it); });
+      } else {
+        raf = requestAnimationFrame(loop);
+      }
+    };
+    // webfont 就位后再渲染，模切才贴合真实字形
+    if (document.fonts && document.fonts.status !== 'loaded') document.fonts.ready.then(start);
+    else start();
+
+    let rp = false;
+    const onResize = () => {
+      if (rp) return;
+      rp = true;
+      requestAnimationFrame(() => { rp = false; build(); });
+    };
+    window.addEventListener('resize', onResize, { passive: true });
+
+    window.__stickersStop = () => {
+      cancelAnimationFrame(raf);
+      timeouts.forEach(clearTimeout);
+      window.removeEventListener('resize', onResize);
+      window.__stickersStop = null;
+    };
+  })();
+</script>

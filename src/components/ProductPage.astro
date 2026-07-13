@@ -2,7 +2,6 @@
 import { render, type CollectionEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Icon from './Icon.astro';
-import PixelIcon from './PixelIcon.astro';
 import { t, LOCALES, type Locale } from '../i18n';
 
 type Product =
@@ -30,9 +29,9 @@ const { Content } = await render(product);
 const d = product.data;
 const dims = d.scores
   ? [
-      { label: s.craft, icon: 'gem', value: d.scores.craft },
-      { label: s.originality, icon: 'bulb', value: d.scores.originality },
-      { label: s.technology, icon: 'chip', value: d.scores.tech },
+      { label: s.craft, icon: '💎', value: d.scores.craft },
+      { label: s.originality, icon: '💡', value: d.scores.originality },
+      { label: s.technology, icon: '🤖', value: d.scores.tech },
     ]
   : [];
 
@@ -47,7 +46,7 @@ const jsonLd = JSON.stringify({
   ...(d.image ? { image: new URL(d.image, Astro.site).href } : {}),
   review: {
     '@type': 'Review',
-    author: { '@type': 'Organization', name: 'Considered' },
+    author: { '@type': 'Organization', name: 'Grain' },
     inLanguage: locale === 'en' ? 'en' : locale === 'zh' ? 'zh-CN' : 'ja',
     reviewBody: d.review.join('\n\n'),
   },
@@ -55,7 +54,7 @@ const jsonLd = JSON.stringify({
 ---
 
 <Base
-  title={`${d.name} — Considered`}
+  title={`${d.name} — Grain`}
   description={d.tagline}
   ogImage={d.image}
   ogType="article"
@@ -118,6 +117,7 @@ const jsonLd = JSON.stringify({
   {
     d.image && (
       <figure class="product-shot">
+        <span class="tape" aria-hidden="true" />
         <img
           src={d.image}
           alt={`${d.name} — product visual`}
@@ -126,7 +126,6 @@ const jsonLd = JSON.stringify({
           loading="eager"
           transition:name={`shot-${product.id}`}
         />
-        <figcaption class="shot-caption">{product.id} · {new URL(d.url).hostname}</figcaption>
       </figure>
     )
   }
@@ -143,9 +142,7 @@ const jsonLd = JSON.stringify({
               <span class="dim-label">{dim.label}</span>
               <span class="dim-scale" role="img" aria-label={`${dim.label}: ${dim.value} / 5`}>
                 {[1, 2, 3, 4, 5].map((n) => (
-                  <span class={n <= dim.value ? 'dim-pip on' : 'dim-pip'}>
-                    <PixelIcon name={dim.icon} />
-                  </span>
+                  <span class={n <= dim.value ? 'dim-pip on' : 'dim-pip'}>{dim.icon}</span>
                 ))}
               </span>
             </div>

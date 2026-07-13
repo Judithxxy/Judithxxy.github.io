@@ -22,6 +22,7 @@ const path =
   Astro.url.pathname.replace(/^\/(zh|ja)(?=\/|$)/, '').replace(/^$/, '/');
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+
 ---
 
 <!doctype html>
@@ -42,14 +43,14 @@ const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:site_name" content="Considered" />
+    <meta property="og:site_name" content="Grain" />
     {ogImageAbs && <meta property="og:image" content={ogImageAbs} />}
     <meta name="twitter:card" content={ogImageAbs ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {ogImageAbs && <meta name="twitter:image" content={ogImageAbs} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="alternate" type="application/rss+xml" title="Considered" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Grain" href="/rss.xml" />
     <link rel="preload" href="/fonts/instrument-sans-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin />
     <ClientRouter />
@@ -57,10 +58,9 @@ const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
   <body>
     <div class="wrap">
       <header class="topbar">
-        <a href={`${current.prefix}/`} class="brand">Considered<span class="brand-dot">.</span></a>
+        <a href={`${current.prefix}/`} class="brand" aria-label="Grain.">grain<span class="brand-dot">.</span></a>
         <div class="topbar-right">
           <nav>
-            <a href={`${current.prefix}/#manifesto`}>{s.navCriteria}</a>
             <a href={`${current.prefix}/#index`}>{s.navIndex}</a>
             <a href={`${current.prefix}/about/`}>{s.navAbout}</a>
           </nav>
@@ -78,12 +78,12 @@ const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
       <slot />
       <footer>
         <div class="foot-brand">
-          <span class="brand">Considered<span class="brand-dot">.</span></span>
+          <span class="f-brand">grain<span class="brand-dot">.</span></span>
           <p class="foot-slogan">{s.slogan}</p>
         </div>
         <p class="foot-meta">
           <a class="rss-inline" href="/rss.xml"><Icon name="rss" /> {s.subscribeRss}</a>
-          <span class="foot-sep">·</span> © 2026 Considered — {s.footerNote}
+          <span class="foot-sep">·</span> © 2026 Grain — {s.footerNote}
         </p>
       </footer>
     </div>

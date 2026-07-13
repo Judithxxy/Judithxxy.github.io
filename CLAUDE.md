@@ -19,7 +19,10 @@ product entry page.
    first-person "I", grateful and specific — what she felt, what won her over. Banned
    framings: "what earns the entry", "deserves", "qualifies", anything that sounds
    like a tribunal judging products. The editor is a fan taking notes, not a judge
-   issuing rulings.
+   issuing rulings. Also banned: claims about a team's intent or effort ("made with
+   care", "crafted with love") — we can't see intent, and plenty of carefully-made
+   products still miss. Praise observable outcomes instead: "gets something right" /
+   「真正做对了」/「核心を捉えた」.
 4. **The "At a glance" body is facts, not opinions.** Objective information only:
    what it does, notable details, who it's for. No judgment words — the personal
    perspective lives only in the editor's notes.
@@ -60,10 +63,12 @@ Three locales: English (default, at `/`), Simplified Chinese (`/zh/`), Japanese
   editor's notes (distilled from her telling), scores, and a place in the prev/next
   walk. Entries are NOT numbered or ranked against each other — the index shows the
   date each was added instead.
-- **`radar`** — newly launched or still-in-testing products whose direction she finds
-  promising. **No scores** (she hasn't lived with them), one short "Why I'm watching"
-  paragraph (first impressions + the open question she's waiting to answer), not part
-  of the walk. Shown in a lighter "On the radar" list below the index.
+- **`radar`** — newly launched products (some still in beta or behind a waitlist)
+  she's excited about. **No scores** (she hasn't lived with them), one short
+  "First impressions" paragraph, not part of the walk. Shown in a lighter
+  "New & noteworthy" list below the index. ⚠️ User-facing copy must frame this
+  tier as *new*, never as "under observation / being evaluated" — that reads as
+  a tribunal (hard rule 3). The internal `radar` status value is unchanged.
 
 When she's used a radar product enough, it graduates: she narrates it properly, gets
 full notes + scores, `status` flips to `collection` with a fresh `date`. A graduation
@@ -106,14 +111,23 @@ The editor provides: product name, URL, her review (one or more paragraphs). The
 - `npm run dev` — local preview (localhost:4321)
 - `npm run build` — build to `dist/`, deployable on any static host
 
-## Design notes
+## Design notes (2026-07-13 · "collector's riso notebook")
 
-Editorial/gallery direction: warm paper background, serif display type
-(Instrument Serif + Instrument Sans), table-of-contents layout, vermilion as the
-single accent color. Keep restraint when touching styles — no card shadows, no
-gradients. Design tokens live at the top of `src/styles/global.css`.
+Direction: riso print × personal scrapbook on warm cream paper (#f4eddf), full-page
+paper-grain overlay. Four inks: work-blue #2440c8 (ALSO the only functional color —
+links/hovers/focus), red #ff4318, yellow #efbe10, green #0e9b6c. Signature elements:
+die-cut sticker field in the hero (draggable, canvas-rendered), washi-tape section
+tags, white polaroid specimen cards with tape, highlighter-swipe on the H1 keyword
+and on ledger-row hover, torn-paper ink footer.
 
-Icons: inline Lucide SVGs via `src/components/Icon.astro`, sourced with
-`npx better-icons get lucide:<name>` (strip the odd `fill="currentColor"` from
-stroke paths when adding). Functional positions only — meta labels, links,
-navigation arrows, RSS — never decorative, never one per heading.
+**Font roles — exactly four, never add more:**
+- `--display` (Baloo 2, rounded 700): Grain's own voice — logo, H1s, product names
+- `--sans` (Instrument Sans): body text AND all small uppercase labels
+- `--serif` (Instrument Serif, italic): quoted human voice only — verdicts, notes,
+  pull quotes
+- `--hand` (system Noteworthy stack): annotations — hero sub-line, sticker accents
+
+⚠️ Banned (previous-generation "engineering archive" tells): monospace anywhere in
+the UI, stamp/badge borders, collection dates in the UI, crosshair/registration
+marks, blueprint linework, pixel-art icons. Icons stay inline Lucide via
+`src/components/Icon.astro`, functional positions only.
