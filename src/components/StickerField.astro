@@ -39,15 +39,20 @@ const words = t[locale].stickers
       { font: serif, style: 'italic 400', color: '#221f19', x: 0.62, y: 0.72, rot: -3 },
     ];
     const DEFS = words.map((word, i) => ({ word, ...STYLE[i % STYLE.length] }));
+    // 手绘水彩贴纸：评分三件（钻石/灯泡/机器人，自带模切白边）
+    DEFS.push(
+      { img: '/images/scores/craft.png', x: 0.48, y: 0.34, rot: -7 },
+      { img: '/images/scores/originality.png', x: 0.82, y: 0.32, rot: 6 },
+      { img: '/images/scores/technology.png', x: 0.2, y: 0.68, rot: -5 }
+    );
     // 非文字贴纸：emoji（🌾 = grain 本尊）
     DEFS.push(
-      { word: '🌾', emoji: true, x: 0.46, y: 0.3, rot: -8 },
-      { word: '⭐', emoji: true, x: 0.9, y: 0.62, rot: 10 },
-      { word: '👀', emoji: true, x: 0.07, y: 0.64, rot: 6 },
-      { word: '✨', emoji: true, x: 0.55, y: 0.68, rot: -6 },
-      { word: '✌️', emoji: true, x: 0.25, y: 0.34, rot: 8 }
+      { word: '🌾', emoji: true, x: 0.62, y: 0.7, rot: -8 },
+      { word: '⭐', emoji: true, x: 0.92, y: 0.66, rot: 10 },
+      { word: '👀', emoji: true, x: 0.07, y: 0.64, rot: 6 }
     );
     const FRICTION = 0.92, BOUNCE = 0.55, MIN_VEL = 0.05, THROW = 0.7;
+    const imgCache = {};
 
     // emoji 贴纸：emoji 不吃 fillStyle，白色模切底用它的 alpha 剪影反复盖印
     const renderEmojiSticker = (def, size, dpr) => {
@@ -91,8 +96,24 @@ const words = t[locale].stickers
       return { cv, w: box, h: box };
     };
 
+    // 图片贴纸：PNG 已自带模切白边+阴影，按目标高度直接绘制
+    const renderImageSticker = (def, fontSize, dpr) => {
+      const im = imgCache[def.img];
+      const h = Math.round(fontSize * 3.4);
+      const w = im ? Math.round((im.naturalWidth / im.naturalHeight) * h) : h;
+      const cv = document.createElement('canvas');
+      cv.width = Math.ceil(w * dpr);
+      cv.height = Math.ceil(h * dpr);
+      const ctx = cv.getContext('2d');
+      if (im) ctx.drawImage(im, 0, 0, cv.width, cv.height);
+      cv.style.width = w + 'px';
+      cv.style.height = h + 'px';
+      return { cv, w, h };
+    };
+
     const renderSticker = (def, fontSize) => {
       const dpr = Math.min(devicePixelRatio || 1, 2);
+      if (def.img) return renderImageSticker(def, fontSize, dpr);
       if (def.emoji) return renderEmojiSticker(def, Math.round(fontSize * 1.5), dpr);
       const border = Math.max(6, Math.round(fontSize * 0.18));
       const fontStr = `${def.style} ${fontSize}px ${def.font}`;
@@ -251,9 +272,26 @@ const words = t[locale].stickers
         raf = requestAnimationFrame(loop);
       }
     };
-    // webfont 就位后再渲染，模切才贴合真实字形
-    if (document.fonts && document.fonts.status !== 'loaded') document.fonts.ready.then(start);
-    else start();
+
+    // 预载图片贴纸（图片解码后再 build，否则首帧尺寸不对）
+    const preload = () => Promise.all(
+      DEFS.filter((d) => d.img).map(
+        (d) =>
+          new Promise((res) => {
+            const im = new Image();
+            im.onload = () => { imgCache[d.img] = im; res(); };
+            im.onerror = () => res();
+            im.src = d.img;
+          })
+      )
+    );
+
+    // webfont 就位 + 图片解码后再渲染
+    const fontsReady =
+      document.fonts && document.fonts.status !== 'loaded'
+        ? document.fonts.ready
+        : Promise.resolve();
+    Promise.all([fontsReady, preload()]).then(start);
 
     let rp = false;
     const onResize = () => {

@@ -29,9 +29,9 @@ const { Content } = await render(product);
 const d = product.data;
 const dims = d.scores
   ? [
-      { label: s.craft, icon: '💎', value: d.scores.craft },
-      { label: s.originality, icon: '💡', value: d.scores.originality },
-      { label: s.technology, icon: '🤖', value: d.scores.tech },
+      { label: s.craft, icon: '/images/scores/craft.png', value: d.scores.craft },
+      { label: s.originality, icon: '/images/scores/originality.png', value: d.scores.originality },
+      { label: s.technology, icon: '/images/scores/technology.png', value: d.scores.tech },
     ]
   : [];
 
@@ -142,7 +142,7 @@ const jsonLd = JSON.stringify({
               <span class="dim-label">{dim.label}</span>
               <span class="dim-scale" role="img" aria-label={`${dim.label}: ${dim.value} / 5`}>
                 {[1, 2, 3, 4, 5].map((n) => (
-                  <span class={n <= dim.value ? 'dim-pip on' : 'dim-pip'}>{dim.icon}</span>
+                  <span class={n <= dim.value ? 'dim-pip on' : 'dim-pip'}><img src={dim.icon} alt="" loading="lazy" /></span>
                 ))}
               </span>
             </div>

@@ -730,14 +730,22 @@ html[lang='ja'] .card-verdict { font-style: normal; }
 
 .dim-scale {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.375rem;
 }
 
 .dim-pip {
   line-height: 1;
-  font-size: 1.0625rem;
   filter: grayscale(1);
-  opacity: 0.3;
+  opacity: 0.28;
+}
+
+/* 固定方形格子 + contain 居中：三行比例不同的图标列对齐 */
+.dim-pip img {
+  display: block;
+  width: 1.9rem;
+  height: 1.9rem;
+  object-fit: contain;
 }
 
 .dim-pip.on {
