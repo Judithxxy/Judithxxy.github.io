@@ -24,14 +24,14 @@ const shelf = products.slice(0, 6);
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Grain',
+  name: 'Actually Good',
   url: Astro.site?.href,
   description: s.metaDescription,
 });
 ---
 
 <Base
-  title={`Grain — ${locale === 'en' ? 'AI products that get something right' : locale === 'zh' ? '收录真正有品位的 AI 产品' : '「うまく作られた」AIプロダクトだけを'}`}
+  title={`Actually Good — ${locale === 'en' ? 'AI products that get something right' : locale === 'zh' ? '收录真正有品位的 AI 产品' : '「うまく作られた」AIプロダクトだけを'}`}
   description={s.metaDescription}
   ogImage="/images/og-home.png"
   locale={locale}
@@ -40,7 +40,8 @@ const jsonLd = JSON.stringify({
   <script type="application/ld+json" set:html={jsonLd} />
   <section class="hero">
     <h1>
-      {s.heroTitleA}<br />{s.heroMarkPre}<span class="mark">{s.heroMarkText}</span>{s.heroMarkPost}
+      {s.heroTitleA}<br />{s.heroMarkPre}<span class="mark">{s.heroMarkText}</span>{s.heroMarkPost}<span
+        class="full-stop">{locale === 'en' ? '.' : '。'}</span>
     </h1>
     <p class="hero-sub">{s.heroSub}</p>
     <StickerField locale={locale} productCount={products.length} radarCount={radar.length} />

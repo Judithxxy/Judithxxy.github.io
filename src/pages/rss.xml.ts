@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
   );
 
   return rss({
-    title: 'Grain',
+    title: 'Actually Good',
     description:
       "A personal collection of AI products that get something right — used, appreciated, and written up in the editor's own words. No paid placements.",
     site: context.site!,

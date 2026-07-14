@@ -1,4 +1,4 @@
-# Considered (working title) — a hand-picked index of crafted AI products
+# Actually Good — a hand-picked index of AI products that get something right
 
 Pure static site (Astro). No backend, no runtime AI. AI exists only in the publishing
 workflow: the editor provides product info + her review, AI generates a well-formed
@@ -121,7 +121,7 @@ tags, white polaroid specimen cards with tape, highlighter-swipe on the H1 keywo
 and on ledger-row hover, torn-paper ink footer.
 
 **Font roles — exactly four, never add more:**
-- `--display` (Baloo 2, rounded 700): Grain's own voice — logo, H1s, product names
+- `--display` (Baloo 2, rounded 700): Actually Good's own voice — logo, H1s, product names
 - `--sans` (Instrument Sans): body text AND all small uppercase labels
 - `--serif` (Instrument Serif, italic): quoted human voice only — verdicts, notes,
   pull quotes

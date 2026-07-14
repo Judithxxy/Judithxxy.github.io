@@ -46,7 +46,7 @@ const jsonLd = JSON.stringify({
   ...(d.image ? { image: new URL(d.image, Astro.site).href } : {}),
   review: {
     '@type': 'Review',
-    author: { '@type': 'Organization', name: 'Grain' },
+    author: { '@type': 'Organization', name: 'Actually Good' },
     inLanguage: locale === 'en' ? 'en' : locale === 'zh' ? 'zh-CN' : 'ja',
     reviewBody: d.review.join('\n\n'),
   },
@@ -54,7 +54,7 @@ const jsonLd = JSON.stringify({
 ---
 
 <Base
-  title={`${d.name} — Grain`}
+  title={`${d.name} — Actually Good`}
   description={d.tagline}
   ogImage={d.image}
   ogType="article"
