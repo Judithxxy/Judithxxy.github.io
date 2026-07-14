@@ -15,7 +15,7 @@ export const collectionFor: Record<Locale, 'products' | 'products_zh' | 'product
 export const t: Record<Locale, Record<string, string>> = {
   en: {
     siteName: 'Grain',
-    slogan: 'Chosen, not listed.',
+    slogan: 'A place for thoughtful products.',
     navCriteria: 'Manifesto',
     navIndex: 'Index',
     navAbout: 'About',
@@ -70,7 +70,7 @@ export const t: Record<Locale, Record<string, string>> = {
   },
   zh: {
     siteName: 'Grain',
-    slogan: '拣选，而非罗列。',
+    slogan: '一个留给用心产品的地方。',
     navCriteria: '宣言',
     navIndex: '目录',
     navAbout: '关于',
@@ -124,7 +124,7 @@ export const t: Record<Locale, Record<string, string>> = {
   },
   ja: {
     siteName: 'Grain',
-    slogan: '並べるのではなく、選ぶ。',
+    slogan: '思慮深いプロダクトのための場所。',
     navCriteria: 'マニフェスト',
     navIndex: '目録',
     navAbout: 'このサイトについて',

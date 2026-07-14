@@ -1072,11 +1072,15 @@ html[lang='ja'] .foot-slogan { font-style: normal; }
 }
 
 /* —— riso 细节覆盖 —— */
+/* 导航加入圆体阵营：小写、和 logo 同一副嗓子，去掉大写字距的"标签腔" */
 .topbar nav {
-  font-weight: 600;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  text-transform: lowercase;
 }
+
+html[lang='zh-CN'] .topbar nav,
+html[lang='ja'] .topbar nav { font-size: 0.875rem; }
 
 .topbar { align-items: center; }
