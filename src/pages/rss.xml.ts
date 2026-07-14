@@ -10,10 +10,11 @@ export async function GET(context: APIContext) {
   return rss({
     title: 'Actually Good',
     description:
-      "A personal collection of AI products that get something right — used, appreciated, and written up in the editor's own words. No paid placements.",
+      'A hand-picked collection of AI products that get something right. Every entry is in real use, with notes on what makes it special. No paid placements.',
     site: context.site!,
+    customData: '<language>en</language>',
     items: products.map((p) => ({
-      title: `${p.data.status === 'radar' ? 'On the radar: ' : ''}${p.data.name} — ${p.data.tagline}`,
+      title: `${p.data.status === 'radar' ? 'New: ' : ''}${p.data.name} — ${p.data.tagline}`,
       link: `/p/${p.id}/`,
       pubDate: p.data.date,
       description: `“${p.data.verdict}”\n\n${p.data.review.join('\n\n')}`,

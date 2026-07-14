@@ -30,12 +30,25 @@ const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [
     {
+      '@type': 'Organization',
+      '@id': `${siteUrl}#org`,
+      name: 'Actually Good',
+      url: siteUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: new URL('/images/logo.png', Astro.site).href,
+        width: 1049,
+        height: 225,
+      },
+    },
+    {
       '@type': 'WebSite',
       '@id': `${siteUrl}#website`,
       url: siteUrl,
       name: 'Actually Good',
       description: s.metaDescription,
       inLanguage: lang,
+      publisher: { '@id': `${siteUrl}#org` },
     },
     {
       '@type': 'CollectionPage',
@@ -45,6 +58,7 @@ const jsonLd = JSON.stringify({
       description: s.metaDescription,
       inLanguage: lang,
       isPartOf: { '@id': `${siteUrl}#website` },
+      about: { '@id': `${siteUrl}#org` },
       mainEntity: { '@id': `${pageUrl}#itemlist` },
     },
     {
