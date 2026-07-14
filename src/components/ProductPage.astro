@@ -35,21 +35,40 @@ const dims = d.scores
     ]
   : [];
 
+const lang = locale === 'en' ? 'en' : locale === 'zh' ? 'zh-CN' : 'ja';
+const homeUrl = new URL(`${prefix}/`, Astro.site).href;
+
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: d.name,
-  url: d.url,
-  applicationCategory: d.category,
-  operatingSystem: d.platform.join(', '),
-  description: d.tagline,
-  ...(d.image ? { image: new URL(d.image, Astro.site).href } : {}),
-  review: {
-    '@type': 'Review',
-    author: { '@type': 'Organization', name: 'Actually Good' },
-    inLanguage: locale === 'en' ? 'en' : locale === 'zh' ? 'zh-CN' : 'ja',
-    reviewBody: d.review.join('\n\n'),
-  },
+  '@graph': [
+    {
+      '@type': 'SoftwareApplication',
+      name: d.name,
+      url: d.url,
+      applicationCategory: d.category,
+      operatingSystem: d.platform.join(', '),
+      description: d.tagline,
+      ...(d.image ? { image: new URL(d.image, Astro.site).href } : {}),
+      review: {
+        '@type': 'Review',
+        author: { '@type': 'Organization', name: 'Actually Good' },
+        inLanguage: lang,
+        reviewBody: d.review.join('\n\n'),
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Actually Good', item: homeUrl },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: d.name,
+          item: new URL(`${prefix}/p/${product.id}/`, Astro.site).href,
+        },
+      ],
+    },
+  ],
 });
 ---
 

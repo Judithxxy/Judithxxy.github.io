@@ -12,9 +12,12 @@ interface Props {
   locale?: Locale;
   // Locale-less path of this page (e.g. "/", "/about/", "/p/granola/") for language alternates
   pagePath?: string;
+  // Keep utility pages (404) out of the index
+  noindex?: boolean;
 }
 
-const { title, description, ogImage, ogType = 'website', locale = 'en', pagePath } = Astro.props;
+const { title, description, ogImage, ogType = 'website', locale = 'en', pagePath, noindex = false } =
+  Astro.props;
 const s = t[locale];
 const current = LOCALES.find((l) => l.code === locale)!;
 const path =
@@ -23,6 +26,9 @@ const path =
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
 
+// og:locale 用下划线格式；alternate 列出其余两个语言
+const ogLocale: Record<Locale, string> = { en: 'en_US', zh: 'zh_CN', ja: 'ja_JP' };
+const ogLocaleAlternates = LOCALES.filter((l) => l.code !== locale).map((l) => ogLocale[l.code]);
 ---
 
 <!doctype html>
@@ -32,6 +38,13 @@ const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, follow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      )
+    }
     <link rel="canonical" href={canonical} />
     {
       LOCALES.map((l) => (
@@ -44,7 +57,10 @@ const ogImageAbs = ogImage ? new URL(ogImage, Astro.site).href : undefined;
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Actually Good" />
+    <meta property="og:locale" content={ogLocale[locale]} />
+    {ogLocaleAlternates.map((l) => <meta property="og:locale:alternate" content={l} />)}
     {ogImageAbs && <meta property="og:image" content={ogImageAbs} />}
+    {ogImageAbs && <meta property="og:image:alt" content={title} />}
     <meta name="twitter:card" content={ogImageAbs ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />

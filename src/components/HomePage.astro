@@ -21,12 +21,44 @@ const radar = all.filter((p) => p.data.status === 'radar');
 // 标本卡：最新 6 件正式收录
 const shelf = products.slice(0, 6);
 
+const lang = LOCALES.find((l) => l.code === locale)!.lang;
+const siteUrl = Astro.site!.href;
+const pageUrl = new URL(`${prefix}/`, Astro.site).href;
+
+// 结构化数据 @graph：站点 + 这是一个策展集合页 + 集合里的产品清单
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Actually Good',
-  url: Astro.site?.href,
-  description: s.metaDescription,
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#website`,
+      url: siteUrl,
+      name: 'Actually Good',
+      description: s.metaDescription,
+      inLanguage: lang,
+    },
+    {
+      '@type': 'CollectionPage',
+      '@id': `${pageUrl}#collectionpage`,
+      url: pageUrl,
+      name: 'Actually Good',
+      description: s.metaDescription,
+      inLanguage: lang,
+      isPartOf: { '@id': `${siteUrl}#website` },
+      mainEntity: { '@id': `${pageUrl}#itemlist` },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${pageUrl}#itemlist`,
+      numberOfItems: products.length,
+      itemListElement: products.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: new URL(`${prefix}/p/${p.id}/`, Astro.site).href,
+        name: p.data.name,
+      })),
+    },
+  ],
 });
 ---
 
