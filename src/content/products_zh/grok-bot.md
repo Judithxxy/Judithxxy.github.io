@@ -3,6 +3,7 @@ name: Grok Bot
 url: https://x.ai/bot
 tagline: 常驻的 AI 智能体，登录你的各个 app，替你把活干完。
 favicon: /images/favicons/grok-bot.png
+image: /images/products/grok-bot.jpg
 category: AI 智能体
 tags: [智能体, 代办, 自动化]
 platform: [macOS, Windows, iOS]

@@ -3,6 +3,7 @@ name: Grok Bot
 url: https://x.ai/bot
 tagline: 常駐するAIエージェントが、あなたのアプリにログインして仕事を片づける。
 favicon: /images/favicons/grok-bot.png
+image: /images/products/grok-bot.jpg
 category: AIエージェント
 tags: [エージェント, 委任, 自動化]
 platform: [macOS, Windows, iOS]

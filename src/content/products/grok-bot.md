@@ -3,6 +3,7 @@ name: Grok Bot
 url: https://x.ai/bot
 tagline: Persistent AI agents that sign into your apps and do the work.
 favicon: /images/favicons/grok-bot.png
+image: /images/products/grok-bot.jpg
 category: AI agents
 tags: [agents, delegation, automation]
 platform: [macOS, Windows, iOS]
