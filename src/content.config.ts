@@ -41,6 +41,17 @@ const productSchema = z.object({
       tech: z.number().min(1).max(5),
     })
     .optional(),
+  // Real reactions collected from X — praise the product/its users already posted.
+  // Language-neutral (kept identical across locales); quotes stay in their original language.
+  voices: z
+    .array(
+      z.object({
+        handle: z.string(),
+        quote: z.string(),
+        url: z.string().url().optional(),
+      })
+    )
+    .default([]),
 });
 
 const products = defineCollection({

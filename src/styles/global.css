@@ -1139,3 +1139,49 @@ html[lang='zh-CN'] .topbar nav,
 html[lang='ja'] .topbar nav { font-size: 0.875rem; }
 
 .topbar { align-items: center; }
+
+
+/* —— X 上的声音 —— 收集来的真实反馈，明确区别于编者笔记 */
+.voices {
+  max-width: 50rem;
+  margin-inline: auto;
+  margin-bottom: clamp(3rem, 8vw, 5rem);
+}
+
+.voices-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.voice {
+  background: #fdfdfb;
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+}
+
+.voice blockquote {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+html[lang='zh-CN'] .voice blockquote,
+html[lang='ja'] .voice blockquote { font-family: var(--sans); }
+
+.voice-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  margin-top: 0.6rem;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--blue);
+}
+
+.voice-by .ico { width: 0.85em; height: 0.85em; }
+a.voice-by:hover { text-decoration: underline; }

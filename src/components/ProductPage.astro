@@ -187,6 +187,30 @@ const jsonLd = JSON.stringify({
     </blockquote>
   </section>
 
+  {
+    d.voices.length > 0 && (
+      <section class="voices">
+        <div class="section-label">
+          <span>{s.onX}</span>
+        </div>
+        <ul class="voices-list">
+          {d.voices.map((v) => (
+            <li class="voice">
+              <blockquote>{v.quote}</blockquote>
+              {v.url ? (
+                <a class="voice-by" href={v.url} target="_blank" rel="noopener">
+                  {v.handle} <Icon name="arrow-up-right" />
+                </a>
+              ) : (
+                <span class="voice-by">{v.handle}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
   <section class="facts">
     <div class="section-label">
       <span>{s.atAGlance}</span>

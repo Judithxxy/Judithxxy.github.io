@@ -22,6 +22,10 @@ scores:
   craft: 5
   originality: 3
   tech: 3
+voices:
+  - handle: "@lennysan"
+    quote: >-
+      Like OpenClaw, but super easy, reliable, and less scary.
 review:
   - >-
     Grok Botが正しく捉えたのは、新しい機能ではありません——本当に仕事をエージェントに任せて
