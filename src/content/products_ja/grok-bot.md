@@ -22,6 +22,27 @@ scores:
   craft: 5
   originality: 3
   tech: 3
+voices:
+  - handle: "@lennysan"
+    quote: >-
+      I haven't been this excited about a new AI product in a while. It's like OpenClaw, but super easy, reliable, and less scary to use.
+    url: https://x.com/lennysan/status/2087241423792087518
+  - handle: "@mattshumer_"
+    quote: >-
+      This feels like it could be the thing that gets millions of normal people using agents for the first time.
+    url: https://x.com/mattshumer_/status/2087232424535117959
+  - handle: "@martin_casado"
+    quote: >-
+      This is the first product I've used that really nails the virtual co-worker.
+    url: https://x.com/martin_casado/status/2087273088002216104
+  - handle: "@hnshah"
+    quote: >-
+      It is a damn good product.
+    url: https://x.com/hnshah/status/2087284094174728586
+  - handle: "@AlexFinn"
+    quote: >-
+      Best integration of local agent work / cloud agent work I've seen so far.
+    url: https://x.com/AlexFinn/status/2087229163875053988
 review:
   - >-
     Grok Botが正しく捉えたのは、新しい機能ではありません——本当に仕事をエージェントに任せて

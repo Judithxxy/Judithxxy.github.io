@@ -23,6 +23,27 @@ scores:
   craft: 5
   originality: 4
   tech: 4
+voices:
+  - handle: "@morganlinton"
+    quote: >-
+      This isn't just another browser, it's a paradigm shift in how we use the Internet.
+    url: https://x.com/morganlinton/status/1937529845006938388
+  - handle: "@morganlinton"
+    quote: >-
+      One of those rare products I become completely fanatical about.
+    url: https://x.com/morganlinton/status/1940397711926391209
+  - handle: "@s_streichsbier"
+    quote: >-
+      It's like Cursor, but for browsing. The browser is a natural place for deep AI.
+    url: https://x.com/s_streichsbier/status/1938463844592226579
+  - handle: "@theanimeshs"
+    quote: >-
+      It fits so perfectly within the Apple ecosystem — Apple should probably buy them and replace Safari.
+    url: https://x.com/theanimeshs/status/1938491089075257363
+  - handle: "@BLCNYY"
+    quote: >-
+      I'm daily-driving Dia as a years-long Arc user, and I'm so close to not missing Arc.
+    url: https://x.com/BLCNYY/status/1984674296107553084
 review:
   - >-
     Dia is the best AI browser in the industry right now — and I say that as an Arc loyalist

@@ -22,6 +22,27 @@ scores:
   craft: 4
   originality: 5
   tech: 4
+voices:
+  - handle: "@KHvostikk"
+    quote: >-
+      o1-pro + Lovable can do anything. Built it, integrated it in two prompts, then deployed with one click.
+    url: https://x.com/KHvostikk/status/1870955928708854039
+  - handle: "@felixhhaas"
+    quote: >-
+      1500 kids from 80 countries just built their first products with Lovable — games, AI selfie booths, everything.
+    url: https://x.com/felixhhaas/status/1981717791322628491
+  - handle: "@PrajwalTomar_"
+    quote: >-
+      I built the entire UI of this SaaS in 45 minutes. A year ago this took days.
+    url: https://x.com/PrajwalTomar_/status/2021199300592902157
+  - handle: "@PrajwalTomar_"
+    quote: >-
+      I've used Lovable almost daily for over a year. Shipped 45+ MVPs.
+    url: https://x.com/PrajwalTomar_/status/2022559436234174869
+  - handle: "@izu_anyiam"
+    quote: >-
+      One week I built an app to turn goals into systems, the next an AI financial partner — all with Figma and Lovable.
+    url: https://x.com/izu_anyiam/status/2030869136331489741
 review:
   - >-
     Lovable は、コードが書けない人のために本気で設計された初めての AI コーディングツール

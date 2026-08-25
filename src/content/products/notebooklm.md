@@ -23,6 +23,27 @@ scores:
   craft: 3
   originality: 5
   tech: 4
+voices:
+  - handle: "@karpathy"
+    quote: >-
+      NotebookLM is quite powerful and worth playing with — a re-imagination of the UIUX of working with LLMs, with citations.
+    url: https://x.com/karpathy/status/1840112692910272898
+  - handle: "@karpathy"
+    quote: >-
+      NotebookLM podcast generation is touching on a whole new territory of highly compelling LLM product formats.
+    url: https://x.com/karpathy/status/1840137252686704925
+  - handle: "@karpathy"
+    quote: >-
+      Deep Dive is now my favorite podcast — the first time I've actually viscerally liked an AI.
+    url: https://x.com/karpathy/status/1840509391847698651
+  - handle: "@alliekmiller"
+    quote: >-
+      In less than 10 minutes I generated a summary, study guide, Q&A bot, and podcast about the Great Gatsby.
+    url: https://x.com/alliekmiller/status/1839019980643512591
+  - handle: "@aadityaura"
+    quote: >-
+      Google's NotebookLM is truly amazing.
+    url: https://x.com/aadityaura/status/1840650669511889166
 review:
   - >-
     NotebookLM pulled research users away from ChatGPT with one core decision: refusing to

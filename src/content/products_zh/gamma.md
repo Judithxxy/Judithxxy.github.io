@@ -21,6 +21,23 @@ scores:
   craft: 4
   originality: 5
   tech: 3
+voices:
+  - handle: "@omarsar0"
+    quote: >-
+      I used Gamma + n8n to automatically generate a complete presentation on AI Agents research — in just minutes.
+    url: https://x.com/omarsar0/status/1987900645031252298
+  - handle: "@darshal_"
+    quote: >-
+      I gave Gamma a rough idea and in under 2 minutes it turned it into a 10-slide investor deck that looked agency-level.
+    url: https://x.com/darshal_/status/1988154904490439165
+  - handle: "@darshal_"
+    quote: >-
+      Dropped a page of scattered notes into Gamma and got a polished deck that looked like a design team made it.
+    url: https://x.com/darshal_/status/1988155034983673901
+  - handle: "@CodeByPoonam"
+    quote: >-
+      PowerPoint is so outdated — you can now create a presentation in just 30 seconds.
+    url: https://x.com/CodeByPoonam/status/1893254929709703406
 review:
   - >-
     Gamma 是那种罕见的产品：在大语言模型出现之前就存在，之后又真正完成了 AI native 的

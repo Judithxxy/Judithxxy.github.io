@@ -22,6 +22,27 @@ scores:
   craft: 5
   originality: 4
   tech: 4
+voices:
+  - handle: "@natfriedman"
+    quote: >-
+      It generates the best meeting notes of anything I've tried so far. Not sure how they did that.
+    url: https://x.com/natfriedman/status/1803788840781365393
+  - handle: "@rauchg"
+    quote: >-
+      It's actually unbelievable how good Granola is. There's no going back to pre-granola days.
+    url: https://x.com/rauchg/status/1877101525354369202
+  - handle: "@destraynor"
+    quote: >-
+      Everyone thinks they have a good meeting notes app — it's only once they use Granola they realise what they've been missing.
+    url: https://x.com/destraynor/status/1907909497399734459
+  - handle: "@deedydas"
+    quote: >-
+      One of the best made “AI” apps I've used this year. Minimal, fast, no setup. It. just. works.
+    url: https://x.com/deedydas/status/1868340259752456280
+  - handle: "@karrisaarinen"
+    quote: >-
+      One of those things that just clicked instantly. Seamless and very purpose-built.
+    url: https://x.com/karrisaarinen/status/1922668975164461079
 review:
   - >-
     Granola は、会議 AI というカテゴリー全体が見落としていた一点を正確に捉えました。人々は

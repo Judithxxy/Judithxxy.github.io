@@ -22,6 +22,27 @@ scores:
   craft: 4
   originality: 5
   tech: 5
+voices:
+  - handle: "@tobi"
+    quote: >-
+      Sesame's voice model is absolutely insane. You have to try this demo.
+    url: https://x.com/tobi/status/1895287149446210044
+  - handle: "@rauchg"
+    quote: >-
+      Absolutely astonishing voice AI demo. The whole site experience is 🔥.
+    url: https://x.com/rauchg/status/1895517544838218029
+  - handle: "@linuz90"
+    quote: >-
+      This could pass the Turing test for me — the voice quirks especially really sell it.
+    url: https://x.com/linuz90/status/1895395653741867418
+  - handle: "@zachtratar"
+    quote: >-
+      The new Sesame voice model feels like a ChatGPT moment for voice. It's just that good.
+    url: https://x.com/zachtratar/status/1895415297613672681
+  - handle: "@nikunj"
+    quote: >-
+      This is the most “her” moment I've felt in the last few years. Truly uncanny.
+    url: https://x.com/nikunj/status/1895353142088474886
 review:
   - >-
     Sesame の Maya には、他のどの AI にも出会ったことのないものがあります — 人格的な魅力
