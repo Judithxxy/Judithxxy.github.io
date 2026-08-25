@@ -22,6 +22,27 @@ scores:
   craft: 5
   originality: 5
   tech: 5
+voices:
+  - handle: "@Rahul_J_Mathur"
+    quote: >-
+      I saved 180 hours this year using Wispr Flow — recently crossed 1 million words on it.
+    url: https://x.com/Rahul_J_Mathur/status/2091748242673508651
+  - handle: "@MadalynSklar"
+    quote: >-
+      Absolutely phenomenal — it's been part of my daily life for over a year.
+    url: https://x.com/MadalynSklar/status/2085090671254282445
+  - handle: "@damonchen"
+    quote: >-
+      Elon should just buy Wispr Flow and make it the default dictate button.
+    url: https://x.com/damonchen/status/2091697812744675357
+  - handle: "@benln"
+    quote: >-
+      Upgraded to a Wispr Flow mic. I rarely use a keyboard anymore.
+    url: https://x.com/benln/status/2086448875619901569
+  - handle: "@mattytjmartin"
+    quote: >-
+      Wispr Flow is a game changer.
+    url: https://x.com/mattytjmartin/status/2082585775246283258
 review:
   - >-
     Wispr Flow は「話すこと」を、書くための最速の手段にしてくれます。本当にささやくだけで
