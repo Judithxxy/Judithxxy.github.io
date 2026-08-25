@@ -193,17 +193,21 @@ const jsonLd = JSON.stringify({
         <div class="section-label">
           <span>{s.onX}</span>
         </div>
-        <ul class="voices-list">
+        <ul class="voice-wall">
           {d.voices.map((v) => (
             <li class="voice">
-              <blockquote>{v.quote}</blockquote>
-              {v.url ? (
-                <a class="voice-by" href={v.url} target="_blank" rel="noopener">
-                  {v.handle} <Icon name="arrow-up-right" />
-                </a>
-              ) : (
-                <span class="voice-by">{v.handle}</span>
-              )}
+              <a href={v.url} target="_blank" rel="noopener">
+                <p class="voice-quote">{v.quote}</p>
+                <span class="voice-by">
+                  <svg class="voice-x" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                    />
+                  </svg>
+                  {v.handle}
+                </span>
+              </a>
             </li>
           ))}
         </ul>
