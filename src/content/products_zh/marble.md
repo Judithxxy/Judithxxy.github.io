@@ -21,6 +21,27 @@ review:
     在创造上——画画、讲故事、答题、作业辅导放在一起，孩子始终在做出点什么，而不只是
     被动接收。说到底，这和我写 Granola 时的信念是同一个——AI 不该替代思考，它该让人
     更主动。目前还在测试期，所以我在观察这个世界在真实的家庭生活里撑不撑得住。
+voices:
+  - handle: "@timsco"
+    quote: >-
+      I joined the beta last week. I'm really impressed so far.
+    url: https://x.com/timsco/status/2077471052246954269
+  - handle: "@Leonbuild"
+    quote: >-
+      Your design sense is insane — this looks amazing.
+    url: https://x.com/Leonbuild/status/2077109811767033915
+  - handle: "@anthonydibe"
+    quote: >-
+      You guys are unstoppable. It's fantastic!
+    url: https://x.com/anthonydibe/status/2077818044730998939
+  - handle: "@Hunter_Lott_"
+    quote: >-
+      Very cool. I have 4 kids — they could love this.
+    url: https://x.com/Hunter_Lott_/status/2077042341819432972
+  - handle: "@Aizcalibur"
+    quote: >-
+      Loving all these materials — can't wait to use it to explain concepts to the younger generation.
+    url: https://x.com/Aizcalibur/status/2077827811063075235
 ---
 
 ## 它做什么

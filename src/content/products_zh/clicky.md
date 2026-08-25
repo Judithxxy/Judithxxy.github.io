@@ -20,6 +20,27 @@ review:
     方式，而不是又一个聊天框。我自己头几次用下来留了一个保留意见——跟着光标的这个
     存在，在你想专注时会让人分心。所以我先把它放在这里观察：只要这个存在学会什么时候
     该退开，这套交互就值得。
+voices:
+  - handle: "@GumbiiDigital"
+    quote: >-
+      I use Clicky more than anything else. If you haven't tried it yet, give it a shot.
+    url: https://x.com/GumbiiDigital/status/2081404790513287551
+  - handle: "@itsmechase"
+    quote: >-
+      Hands down the best onboarding I've ever had — in 5 minutes Clicky played a video, built a site, ran a competitor report, and drafted an email.
+    url: https://x.com/itsmechase/status/2075239078128156951
+  - handle: "@Amart_AI"
+    quote: >-
+      I go through a hundred product launches a week. Most are noise. Clicky made me stop and go “wait, that actually works?”
+    url: https://x.com/Amart_AI/status/2077773677572329979
+  - handle: "@Benny_Jiang_"
+    quote: >-
+      I love their vibe — the logo and landing page are just genius.
+    url: https://x.com/Benny_Jiang_/status/2080536004721873400
+  - handle: "@matthewjgl"
+    quote: >-
+      Wispr Flow or a voice OS can't do what Clicky is capable of.
+    url: https://x.com/matthewjgl/status/2077815302868332956
 ---
 
 ## 它做什么

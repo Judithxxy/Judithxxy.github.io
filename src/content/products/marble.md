@@ -24,6 +24,27 @@ review:
     making something, not just receiving input. The same belief I wrote about with
     Granola, really — AI shouldn't replace thinking; it should make people more
     active. Still in beta, so I'm watching how the world holds up in real family life.
+voices:
+  - handle: "@timsco"
+    quote: >-
+      I joined the beta last week. I'm really impressed so far.
+    url: https://x.com/timsco/status/2077471052246954269
+  - handle: "@Leonbuild"
+    quote: >-
+      Your design sense is insane — this looks amazing.
+    url: https://x.com/Leonbuild/status/2077109811767033915
+  - handle: "@anthonydibe"
+    quote: >-
+      You guys are unstoppable. It's fantastic!
+    url: https://x.com/anthonydibe/status/2077818044730998939
+  - handle: "@Hunter_Lott_"
+    quote: >-
+      Very cool. I have 4 kids — they could love this.
+    url: https://x.com/Hunter_Lott_/status/2077042341819432972
+  - handle: "@Aizcalibur"
+    quote: >-
+      Loving all these materials — can't wait to use it to explain concepts to the younger generation.
+    url: https://x.com/Aizcalibur/status/2077827811063075235
 ---
 
 ## What it does

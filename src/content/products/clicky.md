@@ -22,6 +22,27 @@ review:
     the cursor-following presence can get distracting when you're trying to focus. So
     I'm keeping it here and watching, because the interaction will be worth it if the
     presence learns when to stay out of the way.
+voices:
+  - handle: "@GumbiiDigital"
+    quote: >-
+      I use Clicky more than anything else. If you haven't tried it yet, give it a shot.
+    url: https://x.com/GumbiiDigital/status/2081404790513287551
+  - handle: "@itsmechase"
+    quote: >-
+      Hands down the best onboarding I've ever had — in 5 minutes Clicky played a video, built a site, ran a competitor report, and drafted an email.
+    url: https://x.com/itsmechase/status/2075239078128156951
+  - handle: "@Amart_AI"
+    quote: >-
+      I go through a hundred product launches a week. Most are noise. Clicky made me stop and go “wait, that actually works?”
+    url: https://x.com/Amart_AI/status/2077773677572329979
+  - handle: "@Benny_Jiang_"
+    quote: >-
+      I love their vibe — the logo and landing page are just genius.
+    url: https://x.com/Benny_Jiang_/status/2080536004721873400
+  - handle: "@matthewjgl"
+    quote: >-
+      Wispr Flow or a voice OS can't do what Clicky is capable of.
+    url: https://x.com/matthewjgl/status/2077815302868332956
 ---
 
 ## What it does

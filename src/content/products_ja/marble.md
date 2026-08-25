@@ -25,6 +25,27 @@ review:
     いる——ただ知識を受け取るのではなく。Granola のところで書いたのと同じ信念です。
     AI は思考を代替するのではなく、人をより能動的にするべきだと。まだベータなので、
     この世界が実際の家庭生活の中でどう育つかを見守っています。
+voices:
+  - handle: "@timsco"
+    quote: >-
+      I joined the beta last week. I'm really impressed so far.
+    url: https://x.com/timsco/status/2077471052246954269
+  - handle: "@Leonbuild"
+    quote: >-
+      Your design sense is insane — this looks amazing.
+    url: https://x.com/Leonbuild/status/2077109811767033915
+  - handle: "@anthonydibe"
+    quote: >-
+      You guys are unstoppable. It's fantastic!
+    url: https://x.com/anthonydibe/status/2077818044730998939
+  - handle: "@Hunter_Lott_"
+    quote: >-
+      Very cool. I have 4 kids — they could love this.
+    url: https://x.com/Hunter_Lott_/status/2077042341819432972
+  - handle: "@Aizcalibur"
+    quote: >-
+      Loving all these materials — can't wait to use it to explain concepts to the younger generation.
+    url: https://x.com/Aizcalibur/status/2077827811063075235
 ---
 
 ## できること
