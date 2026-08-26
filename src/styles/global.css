@@ -1143,7 +1143,7 @@ html[lang='ja'] .topbar nav { font-size: 0.875rem; }
 
 /* —— X 上的声音 —— 反馈墙：多列卡片，整卡可点跳转原推 */
 .voices {
-  max-width: 62rem;
+  max-width: 50rem;
   margin-inline: auto;
   margin-bottom: clamp(3rem, 8vw, 5rem);
 }
@@ -1156,7 +1156,6 @@ html[lang='ja'] .topbar nav { font-size: 0.875rem; }
 }
 
 @media (min-width: 34rem) { .voice-wall { columns: 2; } }
-@media (min-width: 58rem) { .voice-wall { columns: 3; } }
 
 .voice {
   break-inside: avoid;
